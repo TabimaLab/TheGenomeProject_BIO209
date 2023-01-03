@@ -8,6 +8,10 @@ evaluating-qc-of-fastq-using-fastqc
 running-fastqc
 analizing-and-describing-results
 laboratory-techniques-for-dna-extraction
+protocol-using-g20-qiagen-columns
+quantification-of-dna-using-qubit-and-nanodrop
+analytical-gel-for-dna-integrity-and-size
+dna-extraction-report
 improving-illumina-read-quality
 running-trimmomatic
 evaluating-quality-of-processed-reads

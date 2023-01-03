@@ -93,7 +93,13 @@ set in the _output.yml file.</p>" />
 <li class="chapter" data-level="3.3.1" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#evaluating-qc-of-fastq-using-fastqc"><i class="fa fa-check"></i><b>3.3.1</b> Evaluating QC of FASTQ using FastQC</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="laboratory-techniques-for-dna-extraction.html"><a href="laboratory-techniques-for-dna-extraction.html"><i class="fa fa-check"></i><b>4</b> Laboratory techniques for DNA extraction</a></li>
+<li class="chapter" data-level="4" data-path="laboratory-techniques-for-dna-extraction.html"><a href="laboratory-techniques-for-dna-extraction.html"><i class="fa fa-check"></i><b>4</b> Laboratory techniques for DNA extraction</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="laboratory-techniques-for-dna-extraction.html"><a href="laboratory-techniques-for-dna-extraction.html#protocol-using-g20-qiagen-columns"><i class="fa fa-check"></i><b>4.1</b> Protocol using G/20 QIAGEN columns</a></li>
+<li class="chapter" data-level="4.2" data-path="laboratory-techniques-for-dna-extraction.html"><a href="laboratory-techniques-for-dna-extraction.html#quantification-of-dna-using-qubit-and-nanodrop"><i class="fa fa-check"></i><b>4.2</b> Quantification of DNA using Qubit and Nanodrop</a></li>
+<li class="chapter" data-level="4.3" data-path="laboratory-techniques-for-dna-extraction.html"><a href="laboratory-techniques-for-dna-extraction.html#analytical-gel-for-dna-integrity-and-size"><i class="fa fa-check"></i><b>4.3</b> Analytical gel for DNA integrity and size</a></li>
+<li class="chapter" data-level="4.4" data-path="laboratory-techniques-for-dna-extraction.html"><a href="laboratory-techniques-for-dna-extraction.html#dna-extraction-report"><i class="fa fa-check"></i><b>4.4</b> DNA extraction report</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html"><i class="fa fa-check"></i><b>5</b> Improving Illumina Read Quality</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#running-trimmomatic"><i class="fa fa-check"></i><b>5.1</b> Running Trimmomatic</a></li>
@@ -153,7 +159,103 @@ set in the _output.yml file.</p>" />
             <section class="normal" id="section-">
 <div id="laboratory-techniques-for-dna-extraction" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Laboratory techniques for DNA extraction<a href="laboratory-techniques-for-dna-extraction.html#laboratory-techniques-for-dna-extraction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="objectives">
+<p>
+<strong>Objectives</strong>
+</p>
+<ol style="list-style-type: decimal">
+<li>
+To learn about the most commonly used types of files for genome
+sequencing: FASTQ files
+</li>
+<li>
+To understand the information included in FASTQ files
+</li>
+<li>
+To identify good quality and bad quality reads from genome
+sequencing datasets
+</li>
+</ol>
+</div>
+<p>We use a DNA extraction kit (QIAGEN Genomic DNA kit) to obtain very high molecular weight genomic DNA. The protocol can be found <a href="https://www.qiagen.com/br/resources/download.aspx?id=d2b85b26-16dd-4259-a3a7-a08cbd2a08a3&amp;lang=en">here</a> or in our Canvas page.</p>
+<p><strong>Read pages 44 - 53 before coming to the lab so you can familiarize yourseld with the protocol</strong></p>
+<div id="protocol-using-g20-qiagen-columns" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Protocol using G/20 QIAGEN columns<a href="laboratory-techniques-for-dna-extraction.html#protocol-using-g20-qiagen-columns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>Label your preps and make sure that the Buffer QF is prewarmed to 50°C and that the centrifuge is set at 4°C.</p></li>
+<li><p>For each prep, add 2 μl, of RNase A solution (100 mg/ml) to a 1 ml aliquot of Buffer B1.</p></li>
+<li><p>Dissolve lysozyme in distilled water to a concentration of 100 mg/ml.</p></li>
+<li><p>Pellet bacteria from an appropriate volume of culture by centrifugation at 3000-5000 x g for 5-10 min. Discard the</p></li>
+<li><p>Resuspend the bacteria pellet from step 3 in 1 ml of Buffer B1 (with RNase A) by vortexing at top speed.</p></li>
+<li><p>Add the RNase A to Buffer B1 according to step 2 before adding the buffer to the bacteria.</p></li>
+<li><p>Resuspend the bacterial pellet as thoroughly as possible by vortexing. For efficient lysis of the bacteria, it is important to have a homogeneous suspension.</p></li>
+<li><p>Add 20 μl of lysozyme stock solution (100 mg/ml), and 45 μl of Proteinase K stock solution. Incubate at 37°C for
+at least 30 min.</p></li>
+<li><p>Add 350 μl of Buffer B2, and mix by inverting the tube several times or by vortexing for a few seconds.</p></li>
+<li><p>Incubate at 50°C for 30 min. Mix the lysate and Buffer B2 very thoroughly. This step is important for efficient deproteinization.</p></li>
+<li><p>Equilibrate a QIAGEN Genomic-tip with 1 ml of Buffer QBT and allow the QIAGEN Genomic-tip to empty by gravity flow.</p></li>
+<li><p>Allow the QIAGEN Genomic-tip to drain completely. The flow of buffer will stop when the meniscus reaches the upper frit. The frit prevents the QIAGEN Genomic-tip from running dry, allowing it to be left unattended. Do not force out the remaining buffer, as this will necessitate restarting the flow with a syringe and adapter.</p></li>
+<li><p>Vortex the lysed sample for 10 s at maximum speed and apply it to the equilibrated QIAGEN Genomic-tip. Allow it to enter the resin by gravity flow.</p></li>
+<li><p>Wash the QIAGEN Genomic-tip with 3 x 1 ml of Buffer QC. Allow Buffer QC to move through the QIAGEN Genomic-tip by gravity flow. Two washes are sufficient to remove all contaminants in the majority of DNA preparations.</p></li>
+<li><p>Elute the genomic DNA with 2 x 1 ml, of Buffer QF. Place the QIAGEN Genomic-tip over a clean 5 ml collection tube. Allow the QIAGEN Genomic-tip to drain by gravity flow.</p></li>
+<li><p>Precipitate the DNA by adding 1.4 ml (0.7 volumes) room-temperature (15 25°C) isopropanol to the eluted DNA.</p></li>
+<li><p>Mix and centrifuge immediately at 15000 x g for at least 15 min at 4°C. Carefully remove the supernatant. Proceed with
+step 6B.</p></li>
+<li><p>Wash the centrifuged DNA pellet with 1 ml of cold 70% ethanol. Vortex briefly and centrifuge at 15000 x g for 10 min at 4°C. Carefully remove the supernatant without disturbing the pellet.</p></li>
+<li><p>Air-dry for 5 10 min, and re-suspend the DNA in 1 ml of a suitable buffer (e.g., TE buffer, pH 8.0, or 10 mM Tris·Cl, pH
+8.5).</p></li>
+<li><p>Dissolve the DNA at 55°C for 1-2 h</p></li>
+</ol>
+</div>
+<div id="quantification-of-dna-using-qubit-and-nanodrop" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Quantification of DNA using Qubit and Nanodrop<a href="laboratory-techniques-for-dna-extraction.html#quantification-of-dna-using-qubit-and-nanodrop" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To determine how much DNA we extracted, we will use Qubit and Nanodrop to quantify the amount extracted.</p>
+</div>
+<div id="analytical-gel-for-dna-integrity-and-size" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Analytical gel for DNA integrity and size<a href="laboratory-techniques-for-dna-extraction.html#analytical-gel-for-dna-integrity-and-size" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>Mix 0.3 g of agarose into 60 ml of 1x TAE buffer</p></li>
+<li><p>Heat the mixture in the microwave for 30s in 5s intervals until the solution is clear. Mix at every interval.</p></li>
+<li><p>Wait for the mix to cool a little and add 5 μl of SYBR SAFE/SYBR GREEN to the mix</p></li>
+<li><p>Add the mixture to the gel box with the comb in it. <strong>Ask your TA/PLA/Professor for help!</strong></p></li>
+<li><p>Wait 20/30 mins for the gel to solidify.</p></li>
+<li><p>Add 10 μl of DNA ladder 1kb in the first and last wells of the gel</p></li>
+<li><p>Mix 3 μl of the sample with 6μl of DNA loading buffer and load the mix into one of the wells in the gel.</p></li>
+<li><p>Run the gel for 30 minutes at 95 volts.</p></li>
+<li><p>Visualize the gel in the blue light machine, tak</p></li>
+<li><p>Take a picture for your electronic notebook.</p></li>
+</ol>
+</div>
+<div id="dna-extraction-report" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> DNA extraction report<a href="laboratory-techniques-for-dna-extraction.html#dna-extraction-report" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="rmdquestion">
+<p>
+In an R markdown file, include the 260/230 values, 260/280 values,
+the concentration from the nanodrop and the concentration from the
+Qubit.
+</p>
+<p>
+Also include your gel and indicate your DNA size.
+</p>
+<p>
+Discuss your results, answer these questions and add them to that
+discussion:
+</p>
+<ul>
+<li>
+Is the Nanodrop concentration higher than the Qubit? Why?
+</li>
+<li>
+Would you consider your DNA extraction to be of HMW?
+</li>
+<li>
+Did you extract enough DNA for the Nanopore sequencing of your
+genome?
+</li>
+</ul>
+</div>
 
+</div>
 </div>
             </section>
 

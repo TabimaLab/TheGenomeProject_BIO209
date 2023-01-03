@@ -1,4 +1,105 @@
 # Laboratory techniques for DNA extraction 
 
+```{block, type='objectives'}
+
+**Objectives**
+
+1. To learn about the most commonly used types of files for genome sequencing: FASTQ files
+2. To understand the information included in FASTQ files
+3. To identify good quality and bad quality reads from genome sequencing datasets
+
+```
+
+
+We use a DNA extraction kit (QIAGEN Genomic DNA kit) to obtain very high molecular weight genomic DNA. The protocol can be found [here](https://www.qiagen.com/br/resources/download.aspx?id=d2b85b26-16dd-4259-a3a7-a08cbd2a08a3&lang=en) or in our Canvas page. 
+
+**Read pages 44 - 53 before coming to the lab so you can familiarize yourseld with the protocol**
+
+
+## Protocol using G/20 QIAGEN columns
+
+1. Label your preps and make sure that the Buffer QF is prewarmed to 50°C and that the centrifuge is set at 4°C.
+
+2. For each prep, add 2 μl, of RNase A solution (100 mg/ml) to a 1 ml aliquot of Buffer B1.
+
+3. Dissolve lysozyme in distilled water to a concentration of 100 mg/ml.
+
+4. Pellet bacteria from an appropriate volume of culture by centrifugation at 3000-5000 x g for 5-10 min. Discard the
+
+5. Resuspend the bacteria pellet from step 3 in 1 ml of Buffer B1 (with RNase A) by vortexing at top speed.
+
+6. Add the RNase A to Buffer B1 according to step 2 before adding the buffer to the bacteria.
+
+7. Resuspend the bacterial pellet as thoroughly as possible by vortexing. For efficient lysis of the bacteria, it is important to have a homogeneous suspension.
+
+5. Add 20 μl of lysozyme stock solution (100 mg/ml), and 45 μl of Proteinase K stock solution. Incubate at 37°C for
+at least 30 min.
+
+6. Add 350 μl of Buffer B2, and mix by inverting the tube several times or by vortexing for a few seconds.
+
+7. Incubate at 50°C for 30 min. Mix the lysate and Buffer B2 very thoroughly. This step is important for efficient deproteinization.
+
+8. Equilibrate a QIAGEN Genomic-tip with 1 ml of Buffer QBT and allow the QIAGEN Genomic-tip to empty by gravity flow.
+
+9. Allow the QIAGEN Genomic-tip to drain completely. The flow of buffer will stop when the meniscus reaches the upper frit. The frit prevents the QIAGEN Genomic-tip from running dry, allowing it to be left unattended. Do not force out the remaining buffer, as this will necessitate restarting the flow with a syringe and adapter.
+
+10.  Vortex the lysed sample for 10 s at maximum speed and apply it to the equilibrated QIAGEN Genomic-tip. Allow it to enter the resin by gravity flow.
+
+11. Wash the QIAGEN Genomic-tip with 3 x 1 ml of Buffer QC. Allow Buffer QC to move through the QIAGEN Genomic-tip by gravity flow. Two washes are sufficient to remove all contaminants in the majority of DNA preparations.
+
+12. Elute the genomic DNA with 2 x 1 ml, of Buffer QF. Place the QIAGEN Genomic-tip over a clean 5 ml collection tube.  Allow the QIAGEN Genomic-tip to drain by gravity flow.
+
+13. Precipitate the DNA by adding 1.4 ml (0.7 volumes) room-temperature (15 25°C) isopropanol to the eluted DNA. 
+
+14. Mix and centrifuge immediately at 15000 x g for at least 15 min at 4°C. Carefully remove the supernatant. Proceed with
+step 6B.
+
+15. Wash the centrifuged DNA pellet with 1 ml of cold 70% ethanol. Vortex briefly and centrifuge at 15000 x g for 10 min at 4°C. Carefully remove the supernatant without disturbing the pellet. 
+
+16. Air-dry for 5 10 min, and re-suspend the DNA in 1 ml of a suitable buffer (e.g., TE buffer, pH 8.0, or 10 mM Tris·Cl, pH
+8.5). 
+
+17. Dissolve the DNA at 55°C for 1-2 h
+
+## Quantification of DNA using Qubit and Nanodrop
+
+To determine how much DNA we extracted, we will use Qubit and Nanodrop to quantify the amount extracted.
+
+## Analytical gel for DNA integrity and size
+
+1. Mix 0.3 g of agarose into 60 ml of 1x TAE buffer
+
+2. Heat the mixture in the microwave for 30s in 5s intervals until the solution is clear. Mix at every interval.
+
+3. Wait for the mix to cool a little and add 5 μl of SYBR SAFE/SYBR GREEN to the mix
+
+4. Add the mixture to the gel box with the comb in it. **Ask your TA/PLA/Professor for help!**
+
+5. Wait 20/30 mins for the gel to solidify.
+
+6. Add 10 μl of DNA ladder 1kb in the first and last wells of the gel
+
+7. Mix 3 μl of the sample with 6μl of DNA loading buffer and load the mix into one of the wells in the gel. 
+
+8. Run the gel for 30 minutes at 95 volts.
+
+9. Visualize the gel in the blue light machine, tak
+
+10. Take a picture for your electronic notebook.
+
+## DNA extraction report
+
+```{block, type='rmdquestion'}
+
+In an R markdown file, include the 260/230 values, 260/280 values, the concentration from the nanodrop and the concentration from the Qubit.
+
+Also include your gel and indicate your DNA size.
+
+Discuss your results, answer these questions and add them to that discussion:
+
+- Is the Nanodrop concentration higher than the Qubit? Why? 
+- Would you consider your DNA extraction to be of HMW? 
+- Did you extract enough DNA for the Nanopore sequencing of your genome?
+```
 
 
