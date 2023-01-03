@@ -1,0 +1,361 @@
+# Assembly Methods for Short Read Sequencing
+
+```{block, type='objectives'}
+
+*Objectives*
+
+1.
+2.
+3.
+
+```
+
+
+```{block, type='rmdwarning'}
+**Recommended:**
+Create a folder inside of your data folder called `assembly` and run everything there.
+
+```
+
+***
+
+## Comparing between k-mers in genome assembly
+
+First, lets test different k-mers and observe how it affects the assembly.
+
+We will use `SPADES`, one of the best assemblers available currently, to assemble our data.
+
+1. Using your **cleaned** and **raw** reads, choose one of the following K values (7, 21, 47) and run `SPADES` by modifying the following code
+
+```
+python3 /Smaug_SSD/bin/SPAdes-3.13.0-Linux/bin/spades.py -t 3 -k k_value -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o spades_k_value
+```
+
+2. Check the stats of your assembly by using the `stats.sh` program from BBMAP as such:
+
+```
+stats.sh in=spades_k_value/scaffolds.fasta
+```
+
+3. Fill the following table. 
+
+```{block, type='rmdquestion'}
+
+|Dataset|K-value|Number of scaffolds|%GC|N50|L90|
+|---|---|---|---|---|
+|Raw reads|7||||
+|Raw reads|21||||
+|Raw reads|47||||
+|Cleaned reads|7||||
+|Cleaned reads|21||||
+|Cleaned reads|47||||
+
+```
+
+4. Answer the following questions:
+
+```{block, type='rmdquestion'}
+1. Define Kmer using your own words
+2. Define N50 and L90 using your own words
+3. Based on your results and the table you filled, what is the best K-mer value?
+```
+
+***
+
+## Using a multi-K-mer approach to avoid manual k-mer selection
+
+As we can tell, K-mer size affects tje assemblies. That means we will have to test multiple K-mer values to find which combination of k-mers is the best one for our assembly.
+
+Luckily, there are programs that will choose the number of optimal k-mers to be tested and will select the best assembly as a final product.
+
+`Unicycler` is an assembly program that doesn't exactly that. Its a program that is specific for prokariotic organisms, so it fits our genomes perfectly.
+
+The `Unicycler` program is super cool as it uses a lot of different programs (such as `SPADES`, `Racon`, `Pilon` and others) to optimize the assemblies for bacterial/archaeal organisms.
+
+5. Run `Unicycler` for your **clean** and **raw** reads by modifying the following command:
+
+```
+unicycler -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o unycycler_raw/clean
+```
+
+6. After the assembly has finished, evaluate the scaffolds using `stats.sh` and create a table below with the results.
+
+7. Answer the following questions:
+
+```{block, type='rmdquestion'}
+4. What was the best K-mer value selected by Unicycler?
+5. What assembly was better? Any of the SPADES assemblies or the Unicycler?
+```
+
+8. We can calculate the coverage for the best assembly by using `bwa` to map the reads to our best assembly as such:
+
+```
+bwa index best_assembly.fasta
+bwa mem -t 4 best_assembly.fasta paired_ends_R1.fastq.gz paired_ends_R2.fastq.gz | samtools view -S -b | samtools sort -O bam -o mapped.bam
+samtools index mapped.bam
+```
+Where `best_assembly.fasta` is your selected assembly, and your output is `mapped.bam`. We will learn more about `bam` files later on the course.
+
+And then, use the `pileup.sh` program to summarize the coverage results as such:
+
+```
+pileup.sh in=mapped.bam out=stats.txt
+```
+
+```{block, type='rmdquestion'}
+
+6. Create a table summarizing the best assembly with coverage information:
+
+|Dataset|Assembly software|Number of reads|Number of scaffolds|%GC|N50|L90|Average coverage|
+|---|---|---|---|---|---|---|---|
+||||||
+
+```
+
+***
+
+## Cleaning the assembly and detecting contamination
+
+So, you think we have the best assembly? NOPE. We still have some work to do.
+
+We have a little problem with our data, and that is that these bacteria might have grown with some other species.
+
+So, chances are the DNA extraction also includes other bacteria that are not *Synechococcus*. How can we check this?
+
+A. We do a **Sketch** assay that will tell us if there is DNA from other species in our genomes
+B. We do a coverage and taxonomy detection assay to determine the number and type of contaminants
+
+We will be doing both in this laboratory assignment.
+
+### **Sketch** assay 
+
+A Sketch assay is a method of rapidly comparing your assembly results k-mers against databases populated with different reference organisms (such as RefSeq from NCBI).
+The method it uses is to create a **hash**. A Hash is a function that converts a large object into a smaller one. Then, you compare this hashes against the hashes from the reference databases to see what your genome looks like.
+This means that you can see if your genome has contamination from other organisms very rapidly.
+
+Lets do a sketch assay for the assemblies:
+
+9. Obtain the sketch for your assembled genome and compare it against the sketch of the RefSeq datasets using `sendsketch.sh` as such:
+
+```
+sendsketch.sh in=best_assembly.fasta refseq
+```
+
+Check the results of the program. The columns `WKID	KID	ANI	SSU Complt Matches Unique` represent the `Weighted k-mer identity`, `K-mer identity`, `Average nucelotide identity`, `16S identity by alignment`, `Genome completeness`, `The number of shared kmers between query and ref`, `The number of shared kmers between query and ref, and no other ref.`
+
+So, if your result is 100% in the `WKID` against *Synechococcus*, that means that 100% of the k-mers from your assembly match the k-mers from *Synechococcus*.
+
+10. Answer the following questions:
+
+```{block, type='rmdquestion'}
+
+7. What are the **GENUS** with higher WKID scores?
+8. What is the WKID score of your assembly when compared to *Synechococcus*?
+9. Summarize you results and what they mean
+
+```
+
+***
+
+## Coverage and Taxonomy detection assay
+
+> Before we start do this:
+
+```
+conda init bash
+```
+
+Then, log out and log in again.
+
+***
+
+Now we suspect that our sequences have a lot of environmental contaminants, but we don't know  which of the scaffolds are from our bacteria of interest or which ones are from contaminants. This is because the results from the `sendsketch.sh` assay are across the entire assembly.To have a good assemblythat **only** respresnets our species of interest we should identify and remove all scaffolds that are not matching the taxa we are interested in.
+
+To do this, we use [`blobtools`](https://blobtools.readme.io/docs). `Blobtools` determines the taxonomic assignment and the coverage for **every single scaffold** in your assembly!
+
+`Blobtools` needs three files:
+
+  - Your assembly in `FASTA` format
+  - Your `BAM` file with mapped reads to your best assembly (`mapped.bam`). This will assess the coverage for each scaffold, as contaminant scaffolds tend to have a different coverage than scaffolds from our species of interest.
+  - A `NCBI BLAST` table where each scaffold is compared to the NCBI database. This will tell us the taxonomic assignment of each scaffold.
+  
+Then, `blobtools` will put all the information together and provide us with two main results:
+
+- A list of the taxonomic assignment and coverage of each scaffold
+- A plot that shows the taxonomic assignment and coverage of each scaffold 
+
+Let's, then, use blobplots and create the taxonomic and coverage assay for our assembled scaffolds.
+
+As of now, we have two files: 
+  - Your assembly in `FASTA` format
+  - Your `BAM` file with mapped reads to your best assembly (`mapped.bam`) from **step 8** in this lab
+
+We are missing the BLAST taxonomic assignments
+
+11. Do a `BLAST` search of our scaffolds against NCBI's `nt` database by first creating a new folder called `blobtools` and running everything there:
+
+```
+mkdir blobtools
+cd blobtools
+blastn -num_threads 4 -task megablast -query best_assembly.fasta -db nt -outfmt '6 qseqid staxids bitscore std' -max_target_seqs 1 -max_hsps 1  -evalue 1e-25 -out best_assembly.blast
+```
+
+Where `best_assembly.fasta` is you assembly file, `-db` is the `nt` database from `NCBI`
+
+12. Answer the following questions using your knowledge from `MBB 101`
+
+```{block, type='rmdquestion'}
+
+10. What `blast` program are we using and what does it mean? What is the `nt` database?
+11. What do the `-max_target_seqs` and  `-max_hsps` flags mean?
+12. What is the e-value used as threshold? What does e-value mean?
+
+```
+
+13. Now, after `BLAST` is done we have all the elements to run `blobltools` as such:
+
+```
+  blobtools create -i best_assembly.fasta -b mapped.bam -t best_assembly.blast -o blobltools_out
+```
+
+Where `-i` is your assembly, `-b` is the `BAM` file of reads mapped to the assembly, `-t` is the `BLAST` output, and `-o` is the output name for the run.
+
+14. `Blobtools` needs a two additional steps in order to visualize and plot the results as this:
+
+```
+blobtools view -i blobltools_out.blobDB.json;
+blobtools plot -i blobltools_out.blobDB.json
+```
+
+15. Let's download the plots in the `.png` files. 
+
+the `blobtools_out.blobDB.json.bestsum.phylum.p8.span.100.blobplot.read_cov.bam0.png` shows the percentage of all taxonomic assignments in our scaffold.
+
+16. Answer the following questions:
+
+
+```{block, type='rmdquestion'}
+13. Include the image.
+14. What is the taxonomical unit with the highest percentage of scaffolds in our assembly?
+15. What is the percentage of scaffolds with assignment to *Synechococcus*?
+```
+
+The `blobtools_out.blobDB.json.bestsum.phylum.p8.span.100.blobplot.bam0.png` file is a blobplot that shows three main things: 
+
+  1. **In Top**: A length (span) vs. GC content plot that shows the size of each scaffold versus its GC content. The colors represent the taxonomic assignment 
+  2. **In the middle**: A Bubbleplot of coverage vs GC content for each scaffold. Larger the circle, larger the scaffold. The colors represent the taxonomic assignment 
+  3. **In the right**:  A coverage vs. length (span) plot that shows the coverage of each scaffold versus its length The colors represent the taxonomic assignment 
+
+What this plot shows us is the differences between all the scaffolds assembled. We can see, here, how the contaminants look versus our desired sequence.
+
+17. Answer the following questions:
+
+```{block, type='rmdquestion'}
+16. Include the image.
+17. What can you say about this plot?
+```
+
+18. Back in the cluster, check the `blobtools_out.blobDB.json.bestsum.phylum.p8.span.100.blobplot.stats.txt` file. That file contains a summary of all the stats from `blobtools`. Copy and paste the results into this page: https://www.tablesgenerator.com/markdown_tables and copy and paste the result below:
+
+```{block, type='rmdquestion'}
+18. Add table here
+```
+
+Here's what each column means:
+
+- `name`: Best taxonomic hit 
+- `colour`: Color used for the plots
+- `count_visible`: Number of scaffolds associated with the taxonomic hit
+- `count_visible_perc`: Percentage of assembly scaffolds associated with the taxonomic hit
+- `span_visible`: Number of bases associated with the taxonomic hit
+- `span_visible_perc`: Percentage of total bases associated with the taxonomic hit
+- `n50`: N50 per taxonomic hi
+- `gc_mean`: Mean GC content per taxonomic hit
+- `gc_std`: Standard deviation of GC content per taxonomic hit
+- `bam0_mean`: Mean coverage per taxonomic hit
+- `bam0_std`: Standard deviation of coverage per taxonomic hit
+- `bam0_read_map`: Number of reads mapped to the taxonomic hit
+- `bam0_read_map_p`: Percentage of reads mapped to the taxonomic hit
+
+19. Answer the following questions:
+
+```{block, type='rmdquestion'}
+
+19. What is the most represented taxonomic hit in your dataset? How did you come to that conclusion?
+20. What about our Cyanobacteria? Can you summarize the results in your own words?
+
+```
+
+19. Finally, to clean the assembly we will extract the scaffolds that match Cyanobacteria. The information of the taxonomic assignment for each scaffold is found in the `blobtools_out.blobDB.table.txt`. 
+
+20. Open the first 20 lines of the file using the program of your choice.
+
+Here's what each column mean:
+
+- `name`: Name of the sequence
+- `length`: Total length of the sequence, i.e. count(A, G, C, T, N)
+- `GC`: GC content percentage of the sequence, i.e. count(G, C)/count(A, G, C, T)
+- `N`: Number of N's in the sequence, i.e. count(N)
+- `bam0`: Coverage from bam0 (see main header for filename)
+- `phylum.t.6%s`: The assigned taxonomy of the sequence at the taxonomic rank of "phylum" under the tax-rule "best-sum"
+- `phylum.s.7%s`:  The sum of scores for the taxonomy of the sequence at the taxonomic rank of "phylum" under the tax-rule "best-sum"
+- `phylum.c.8`: The c-index for the taxonomy of the sequence at the taxonomic rank of "phylum" under the tax-rule "best-sum"
+
+21. Answer the following question:
+
+```{block, type='rmdquestion'}
+
+21. How can you use this file to extract the scaffolds of interest?
+
+```
+
+***
+
+## Extracting the scaffolds of interest
+
+The final step of our assembly is to extract all the scaffolds that have cyanobacterial associations.
+
+We can extract those scaffolds by using the `blobtools seqfilter` program. This program can be ran as such:
+
+```
+blobtools seqfilter -i FASTA -l LIST -o PREFIX > Cynaobacteria_scaffolds.fasta
+
+blobtools seqfilter -i assembly.fasta -l bplot/cyano_scaffs.txt -o Cyano_scaffold
+```
+
+Where `-i` is your assembly, `-l` is the list of sequence names you want to extract, and `-o` is the new names for the new assembly.
+
+So, we have the `-i` and `-o` elements.
+
+22. Answer the following question:
+
+```{block, type='rmdquestion'}
+22. Using the command line tools we have learnt before, how do we extract everything that is Cyanobacteria from the `blobtools_out.blobDB.table.txt` to create the required file by `-l`? (Hint, use the `grep` and `cut` commands in a pipe.)
+```
+
+```{block, type='rmdwarning'}
+This is an example of how the file should look like:
+
+<code>
+$ head list_of_cyano_scaffolds.txt
+
+4
+
+8
+
+21
+
+30
+
+34
+
+</code>
+```
+
+```{block, type='rmdquestion'}
+
+23. Run the `blobtools seqfilter` command and extract the cyanobacterial reads. Then use the `stats.sh` command in the new extracted files (your final assembly). What are the stats? Create a table below.
+24. Finally, how can you check rapidly that there is no contamination in the new assembly? (Hint: Use a program that compares `sketches`). Paste the result below.
+25. Summarize your final assembly in your own words:
+
+```

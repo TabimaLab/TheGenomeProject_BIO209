@@ -1,0 +1,103 @@
+# Hybrid Assembly Methods for Short and Long Reads
+
+```{block, type='objectives'}
+
+*Objectives*
+
+1.
+2.
+3.
+
+```
+
+In the modern era of cheaper sequencing and easily accessible genome sequencers, we can also include long reads in our assembly. The long reads will provide the assemblers with longer regions in which the different fragments can anchor and connect, creating, in theory, longer scaffolds and a more complete assembly. Conversely, these long reads usually have lower quality than short reads and they are less abundant, so using them by themselves may lead to an assembly with a larger percentage or errors than, for example, an assembly with only short reads.
+
+So, the best of both worlds can be combined into what we call **hybrid assemblies**. Hybrid assemblies use both short and long reads to produce a high quality assembly (compred to an assembly of long reads only) with longer and fewer scaffolds than assemblies done with only short reads. 
+
+To perform hybrid genome assemblies, we need two main files:
+
+1. Our Illumina reads (Choose between raw reads or cleaned reads)
+2. Our Nanopore reads (Located at the `/Smaug_SSD/BIOL209/nanopore_raw_data` folder)
+
+## Hybrid assembly using `Unicycler`
+
+The program `unicycler` is combination of programs (also called a **pipeline**) to perform a hybrid assembly. Usually, a manual hybrid assembly (i.e. using each program separately) entails the following steps:
+
+1. `Spades` to make the short reads assemblies
+2. `miniasm` and `racon` to bridge between the scaffolds from the short read assemblies
+3. `bwa` or `bowtie` to map the reads to the new elongated scaffolds for error control
+4. `pilon` to correct the errors detected by the previous read mapping step
+
+However, for prokariotic organisms as the ones we are trying to assemble, our `Unicycler` program will do everything mentioned above and more, so hopefully we will have the best assambly possible using the highest amount of data.
+
+To run `Unicycler` with the long read and short read datasets, modify the following command with your `FASTQ` reads:
+
+```
+unicycler -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -l Nanopore_reads.fastq.gz -o long_read_assembly
+```
+
+2. Let Unicycler run. Answer the following questions:
+
+```{block, type='rmdquestion'}
+
+1. Fill the following table using the information from the hybrid assembly and your previous best short read assembly (Hint: use the output from `stats.sh`):
+
+|Source|Number of scaffolds|%GC|N50|L90|
+|---|---|---|---|---|
+|Short read assembly|||||
+|Hybrid assembly|||||
+
+```
+
+3. Use a **Sketch** assay to determine the taxonomic markup of your long read assembly and answer the following questions for the **hybrid assembly**:
+
+```{block, type='rmdquestion'}
+
+2. What are the **GENUS** with higher WKID scores?
+
+3. What is the WKID score of your assembly when compared to *Synechococcus*?
+
+4. Summarize you results and what they mean
+
+```
+
+4. Use `blobtools` to identify the taxonomic markup of your long read assembly and answer the following questions (Only map your short reads to the new assembly. Remember to use the `bwa index long_read_assembly.fasta` before you map the reads using `bwa mem`)
+
+```{block, type='rmdquestion'}
+
+5. Include the image here:
+
+6. What is the taxonomical unit with the highest percentage of scaffolds in our assembly?
+
+7. What is the percentage of scaffolds with assignment to *Synechococcus*?
+```
+
+5. Finally, extract all the contigs/scaffolds with Cyanobacteria ID. Save these scaffolds in a file called `final_cyano_assembly.fasta`
+
+6. Map the short reads to the `final_cyano_assembly.fasta` using `BWA`. **NOTE: Please remember to do the `bwa index final_cyano_assembly.fasta` code**
+
+7. Use the `pileup.sh` program to summarize the coverage results. Save the number of mapped reads and the percentage of reads mapped.
+
+8. We will do a similar thing using long reads. However, `BWA` is only used for short reads. The creators of `BWA` made a long read mapper called `minimap2`. `minimap2` maps the reads and creates a `BAM` file like in `BWA` but using the long reads. Lets use it to see our coverage with the long read data:  
+
+```
+minimap2 -a final_cyano_assembly.fasta Nanopore_reads.fastq.gz |samtools view -S -b | samtools sort -O bam -o long_read_mapped.bam
+```
+
+Where the `-a` means create a `SAM` file that will be converted into a `BAM` file. 
+
+```{block, type='rmdquestion'}
+
+8. Use the `pileup.sh` program to summarize the coverage results and fill the following table.
+
+|Dataset|Number of reads|Percentage of mapped reads|Average coverage|
+|---|---|---|---|
+|Short read assembly|||
+|Hybrid assembly|||
+
+9. Did your long reads help improve the assembly? Justify your answer.
+
+```
+
+
+

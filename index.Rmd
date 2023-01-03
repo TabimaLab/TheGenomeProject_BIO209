@@ -1,0 +1,27 @@
+--- 
+title: "The Genome Project: Excercise Guidebook"
+author: "Javier F. Tabima Restrepo"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This is a minimal example of using the bookdown package to write a book.
+  The HTML output format for this example is bookdown::gitbook,
+  set in the _output.yml file.
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# BIOL209 (The Genome Project) Excercise Guidebook {#intro}
+
+Welcome to *The Genome Project*! This document here will be the **Laboratory notebook** we will use throughout the term.
+
+You will find here all the exercises and resources we will use for the course
+
+## Additional information about the professor {-}
+
+Professor Tabima Restrepo is always reachable at `jtabima@clarku.edu`. 
+
+Office hours are on *Wednesday afternoons* at Larsy 223, schedule by email.

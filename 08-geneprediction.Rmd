@@ -1,0 +1,136 @@
+# Gene Prediction Methods
+
+```{block, type='objectives'}
+
+*Objectives*
+
+1.
+2.
+3.
+
+```
+After assembling the genome, we need to identify which regions are genes. This is called gene annotation or gene prediction, and uses a combination of *ab-initio* approaches with homology-based searches to predict and annotate the genes. 
+
+We will use [`prokka`](), a state-of-the-art program for prokariotic genome annotation. This program uses both approaches to predict genes.
+
+## Installing prokka
+
+#*# Installing miniconda
+
+Before we can start installing prokka, we need to create a computational environment for it to be able to run correctly. `Miniconda` provides that environment by creating a python instance that groups all the requirements for these programs to run.
+
+```{block, type='rmdalert'}
+
+**PLEASE LET ME KNOW IF THESE STEPS DONT WORK. INSTALLING CONDA CAN BE ANNOYING!**
+
+```
+
+```
+bash
+/Smaug_SSD/bin/Miniconda3-latest-Linux-x86_64.sh
+```
+
+Say `yes` to all the prompts, and let miniconda install.
+
+Then, close your window and reconnect to Smaug.
+
+### Installing the prokka environment and program
+
+After logging back in, we need to install `Prokka` using miniconda as following:
+
+```
+bash
+conda init bash
+```
+
+log out and log in again, and then:
+
+```
+bash
+conda create -n prokka_env -c conda-forge -c bioconda prokka
+conda activate prokka_env
+```
+
+We can finally run prokka. Test it by running 
+
+```
+prokka
+```
+
+A long prompt shoud appear.
+
+***
+
+## Annotating the genomes using prokka
+
+Usually, these computationally complex programs are very long and cumbersome to run, but the develkopers of prokka have made it super easy to run.
+
+Within your sample folder, run the following code:
+
+```
+prokka --genus Synechoccocus --strain the_name_of_your_strain --outdir your_sample_name_annotation --prefix your_sample_name  your_assembly.fasta
+```
+
+And let it run! 
+
+
+### Summarizing the results from prokka
+
+After prokka is done, the outputs should be in your `your_sample_name_annotation` folder.
+
+1. Using the `head` command, answer the following question:
+
+```{block, type='rmdquestion'}
+1. Check the `.fna, .fsa, .ffn, .faa, .gff, .tbl, .tsv, and .gbk` files and explain what are their contents below:
+
+- `.fna` file:
+- `.fsa` file:
+- `.ffn` file:
+- `.faa` file:
+- `.gff` file:
+- `.tbl` file:
+- `.tsv` file:
+- `.gbk` file:
+
+> Hint: Check [the Prokka manual](https://github.com/tseemann/prokka)
+
+
+2. Using your knowledge on the command line, can you count the number of predicted proteins, translated CDS sequences and all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+
+3. Open the `.txt` file. Answer the following questions:
+ 
+ - How many CDS are found? Do they match your counts from the previous step?  
+ - Define rRNA, tRNA and tmRNA (cite your references please) and present the counts of each RNA type.
+ 
+4. Using the `head` command, describe the columns of your `.gff` file.
+```
+
+2. Use the following code to create a summary table of your functional annotations:
+
+```
+cut -f 7 your_sample_name.tsv | sort | uniq -c | sort -nr > gene_counts.txt
+```
+
+Open the `gene_counts.txt` file and answer the following questions:
+
+```{block, type='rmdquestion'}
+
+5. What is the most abundant gene prediction?
+
+6. What is the most abundant gene prediction that is not a hypothetical/predicted protein?
+
+7. What are the most common five gene annotations in your genome?
+
+```
+
+3. Finally, select three random `hypothetical proteins` from your `faa` file. Run them in InterPro Scan (https://www.ebi.ac.uk/interpro/search/sequence/). 
+
+Answer the following:
+
+```{block, type='rmdquestion'}
+
+8. Did any of these proteins have an annotation? Add it below.
+
+9. Add the path of your `faa` file here:
+
+```

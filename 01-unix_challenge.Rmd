@@ -1,0 +1,40 @@
+# UNIX Challenge 
+
+```{block, type='objectives'}
+
+**Objectives**
+
+1. To practice and remember basic coding skills that we will use during the semester. 
+2. To refresh the basics of data analysis in the command line
+3. To re familiarize with the basic formats used in computational biology
+```
+
+Download the *Synechococcus sp.* WH 8101 files: `Syn_WH8101.asmb.fasta`, `Syn_WH8101.cds.fasta` and `Syn_WH8101.aa.fasta` from the Canvas page and answer the following questions in an R Markdown file.
+
+```{block, type='rmdwarning'}
+**PLEASE:** Include the code used for each question as code blocks or you will get points taken away!
+```
+
+```{block, type='rmdquestion'}
+1. How many lines are in each FASTA file?
+
+2. How many sequences are in each FASTA file?
+
+3. What kind of molecule is found in each FASTA file?	
+
+4. Why are the `Syn_WH101.asmb.fasta` and `Syn_WH101.cds.fasta` files different to each other?
+
+5. Provide at least **five** different gene/protein names from the FASTA files in question
+
+6.	Count the occurrence of each nucleotide (A, T, C, and G) in the Whole Genome Files (WGS) of WH8102 and compare it with the nucleotide content for the Coding Sequence file of WH8102
+
+7. In which of the three files can you find the genes `WP_174719562.1`, `WP_130130567.1`, and `WP_130130558.1` 
+
+8. Find the function for the genes `WP_130130185.1` and `WP_130130145.1` in the `Syn_WH8102.aa.fasta` and add them in a `R markdown table`
+
+9. How many genes with the `hypothetical protein` function can you find in the `Syn_WH8102.aa.fasta` file?
+
+10. Provide two more protein functions (annotations) and the number of genes associated with them
+
+11. How would you extract all the information related to sequence names for each file?
+```

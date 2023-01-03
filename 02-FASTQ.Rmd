@@ -1,0 +1,134 @@
+# FASTQ files and understanding read qualities
+
+
+```{block, type='objectives'}
+
+**Objectives**
+
+1. To learn about the most commonly used types of files for genome sequencing: FASTQ files
+2. To understand the information included in FASTQ files
+3. To identify good quality and bad quality reads from genome sequencing datasets
+
+```
+
+
+Today we will explore the previously Illumina sequenced genomes of the four *Synechococcus* samples the Ahlgren Lab has provided us to assemble and annotate.
+
+These genomes have been sequenced using the Illumina HiSeq platform, with **Paired Ends** and a **read length of 150bp**.
+
+Based on that information, answer the following questions:
+
+```{block, type='rmdquestion'}
+1. How many FASTQ files per sample do you expect (one FASTQ per sample or two FASTQ per sample)? Justify your answer.
+2. Do you expect all the reads to be of the same size? Which size?
+```
+
+## Sample distribution
+
+As mentioned in class, we have three main samples sequenced: *S165, S166 and S167*. We will use S165 as an example this week and then you will have to present the results of S166 and S167 as part of your lab report. 
+
+We will use `Smaug` for our data analyses. `Smaug`, or the Great Worm, is the supercomputer we use in the **T lab for mycological evolution**. All the data is available in `Smaug`, so please be careful with the data provided.
+
+To access `Smaug` you need to connect via http://140.232.222.154:8787/. The username to access `Smaug` is the same of your Clark ID, but without the `@clarku.edu` (i.e. My user is `jtabima`)
+
+```{block, type='rmdwarning'}
+The files are stored in a folder at `/Smaug_SSD/BIOL209/raw_illumina_data/raw_reads/SAMPLE_NAME`. **EVERYTHING** that you will do, run or program will be stored in those folders, so please be careful and **DON'T ERASE THE GENOME FILES!**
+```
+
+## Basic information and creating backups
+
+Inside of your sample folders, you should be able to find the genomes in `FASTQ` format. 
+
+```{block, type='rmdquestion'}
+3. What are the genome files? Add the names here
+```
+
+In your home folder (`cd ~`) create a folder called `Genome_backup_SAMPLE_NAME` and copy the genome `FASTQ` files there. 
+
+We know that `FASTQ` files are divided by four lines per each read: 
+
+  * Sequence information
+  * DNA sequence
+  * Spacer
+  * Quality
+  
+The *Sequence information* header (line 1) starts with a `@`, followed by a set of strings. The first set of strings, between the `@` and a colon (`:`) is my *sequence identifier*. Each read starts with that ID.
+  
+Using that information, answer the following questions:
+  
+```{block, type='rmdquestion'}
+4. What is your sample's sequence ID?
+5. Can you use this information to count the number of reads per sample? Add the code below and the result. (Remember, to look at a GZ file without uncompressing it, use the `zcat` command)
+6. Are the number of reads between file R1 and R2 the same? Was this expected? Justify your answer.
+```
+
+Finally, summarize your results in this table:
+
+```{block, type='rmdquestion'}
+|Sample Name|Sequence ID|Number of Reads in R1|Number of Reads in R2|
+|---|---|---|---|---|
+|030121_38|NB551394|2649963|2649963|
+|S165||||
+|S166||||
+|S167||||
+```  
+  
+***
+
+## Quality Control
+
+High Throughput Sequencing technologies are not perfect. They can have various types of errors and contamination. Blindly using raw sequence data for downstream analysis is risky and will lead to poor, and/or inaccurate results.
+
+Here is a very helpful paper on how to “diagnose” issues with sequence data and how to improve these problems. Reading it will help you answers the questions and gain an understanding of common problems with high-throughput sequencing:
+
+Zhou, X. and Rokas, A., 2014. Prevention, diagnosis and treatment of high‐throughput sequencing data pathologies. Molecular ecology, 23(7), pp.1679-1700.
+
+The paper is available in the Canvas page of BIOL209 as well.
+
+
+### Evaluating QC of FASTQ using FastQC
+
+To evaluate the quality of our data and to “diagnose” any problems, we will use software called [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/). 
+
+This webpage can be used to learn more about each metric presented in the FastQC output: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/
+
+#### Running FastQC
+
+1. Create a directory within you sample folder called `QC`
+2. Running `FastQC` is super easy, just use the following command for each of your `FASTQ` files
+
+```
+/Smaug_SSD/bin/fastqc -o /your/output/directory/ sequence.file.fastq.gz
+```
+
+3. Answer the following question:
+
+```{block, type='rmdquestion'}
+7. What are the outputs of FastQC?
+```
+
+4. Download the `.html` files to your local machine (i.e. your computer). The files should be readable by any Internet Browser.
+
+***
+
+#### Analizing and describing results
+
+Once you’ve transferred the `.html` files to your computer, open it up in a web browser. You should see a nicely arranged page with 12 analyses (see the site for an example: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). Each of these analyses can tell us something about the quality of our data.
+
+Answer the following questions:
+
+```{block, type='rmdquestion'}
+8. How many sequence reads makeup our dataset? Does this agree with your previous calculation?
+
+9. What is the read length of our data? Is this result expected or do we see weird results?
+
+10. What is the GC content of our data? Does this match expectations?
+
+11. Describe the sequence quality of the files (per base sequence quality, per tile sequence quality, per sequence quality score).
+
+12. In general, are the forward and reverse reads of similar quality? If they differ, how do they differ?
+
+13.	Are there any issues with the various other metrics analyzed by FastQC (i.e. the red circles with the ‘X’ on the left under the ‘Summary’ heading)? Do you notice any patterns that are puzzling or troubling with any of these analyses?
+
+14. Improving the Illumina Data: Outline rough plan to improve the Illumina Sequence data. You don’t need to provide specific program commands and parameters, but do take a look at some of the programs above to start thinking about how you would improve or filter the read data. By all means you can consider using other software if you find something interesting or useful. 
+``` 

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Nanopore Sequencing | The Genome Project: Excercise Guidebook</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Nanopore Sequencing | The Genome Project: Excercise Guidebook" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Nanopore Sequencing | The Genome Project: Excercise Guidebook" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Javier F. Tabima Restrepo" />
+
+
+<meta name="date" content="2023-01-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="improving-illumina-read-quality.html"/>
+<link rel="next" href="assembly-methods-for-short-read-sequencing.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="font-awesome.min.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The Genome Project: A Guidebook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> BIOL209 (The Genome Project) Excercise Guidebook</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-information-about-the-professor"><i class="fa fa-check"></i>Additional information about the professor</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="unix-challenge.html"><a href="unix-challenge.html"><i class="fa fa-check"></i><b>2</b> UNIX Challenge</a></li>
+<li class="chapter" data-level="3" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html"><i class="fa fa-check"></i><b>3</b> FASTQ files and understanding read qualities</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#sample-distribution"><i class="fa fa-check"></i><b>3.1</b> Sample distribution</a></li>
+<li class="chapter" data-level="3.2" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#basic-information-and-creating-backups"><i class="fa fa-check"></i><b>3.2</b> Basic information and creating backups</a></li>
+<li class="chapter" data-level="3.3" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#quality-control"><i class="fa fa-check"></i><b>3.3</b> Quality Control</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#evaluating-qc-of-fastq-using-fastqc"><i class="fa fa-check"></i><b>3.3.1</b> Evaluating QC of FASTQ using FastQC</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="laboratory-techniques-for-dna-extraction.html"><a href="laboratory-techniques-for-dna-extraction.html"><i class="fa fa-check"></i><b>4</b> Laboratory techniques for DNA extraction</a></li>
+<li class="chapter" data-level="5" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html"><i class="fa fa-check"></i><b>5</b> Improving Illumina Read Quality</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#running-trimmomatic"><i class="fa fa-check"></i><b>5.1</b> Running Trimmomatic</a></li>
+<li class="chapter" data-level="5.2" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#evaluating-quality-of-processed-reads"><i class="fa fa-check"></i><b>5.2</b> Evaluating quality of processed reads</a></li>
+<li class="chapter" data-level="5.3" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#requirements-for-processing-your-reads"><i class="fa fa-check"></i><b>5.3</b> Requirements for processing your reads</a></li>
+<li class="chapter" data-level="5.4" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#what-to-turn-in"><i class="fa fa-check"></i><b>5.4</b> What to turn in?</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="nanopore-sequencing.html"><a href="nanopore-sequencing.html"><i class="fa fa-check"></i><b>6</b> Nanopore Sequencing</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="nanopore-sequencing.html"><a href="nanopore-sequencing.html#summarizing-our-nanopore-sequencing"><i class="fa fa-check"></i><b>6.1</b> Summarizing our Nanopore sequencing</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html"><i class="fa fa-check"></i><b>7</b> Assembly Methods for Short Read Sequencing</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#comparing-between-k-mers-in-genome-assembly"><i class="fa fa-check"></i><b>7.1</b> Comparing between k-mers in genome assembly</a></li>
+<li class="chapter" data-level="7.2" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#using-a-multi-k-mer-approach-to-avoid-manual-k-mer-selection"><i class="fa fa-check"></i><b>7.2</b> Using a multi-K-mer approach to avoid manual k-mer selection</a></li>
+<li class="chapter" data-level="7.3" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#cleaning-the-assembly-and-detecting-contamination"><i class="fa fa-check"></i><b>7.3</b> Cleaning the assembly and detecting contamination</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#sketch-assay"><i class="fa fa-check"></i><b>7.3.1</b> <strong>Sketch</strong> assay</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#coverage-and-taxonomy-detection-assay"><i class="fa fa-check"></i><b>7.4</b> Coverage and Taxonomy detection assay</a></li>
+<li class="chapter" data-level="7.5" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#extracting-the-scaffolds-of-interest"><i class="fa fa-check"></i><b>7.5</b> Extracting the scaffolds of interest</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="hybrid-assembly-methods-for-short-and-long-reads.html"><a href="hybrid-assembly-methods-for-short-and-long-reads.html"><i class="fa fa-check"></i><b>8</b> Hybrid Assembly Methods for Short and Long Reads</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hybrid-assembly-methods-for-short-and-long-reads.html"><a href="hybrid-assembly-methods-for-short-and-long-reads.html#hybrid-assembly-using-unicycler"><i class="fa fa-check"></i><b>8.1</b> Hybrid assembly using <code>Unicycler</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html"><i class="fa fa-check"></i><b>9</b> Gene Prediction Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#installing-prokka"><i class="fa fa-check"></i><b>9.1</b> Installing prokka</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#installing-the-prokka-environment-and-program"><i class="fa fa-check"></i><b>9.1.1</b> Installing the prokka environment and program</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#annotating-the-genomes-using-prokka"><i class="fa fa-check"></i><b>9.2</b> Annotating the genomes using prokka</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#summarizing-the-results-from-prokka"><i class="fa fa-check"></i><b>9.2.1</b> Summarizing the results from prokka</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Genome Project: Excercise Guidebook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="nanopore-sequencing" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Nanopore Sequencing<a href="nanopore-sequencing.html#nanopore-sequencing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="summarizing-our-nanopore-sequencing" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Summarizing our Nanopore sequencing<a href="nanopore-sequencing.html#summarizing-our-nanopore-sequencing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Within the <code>/Smaug_SSD/BIOL209/nanopore_raw_data</code> folder you will find a <code>report_Nanopore_YOURSAMPLE.pdf</code> file. Download it and open it.</p>
+<ol style="list-style-type: decimal">
+<li>Answer the following questions:</li>
+</ol>
+<hr />
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>How many reads were generated by your Nanopore run?</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>How many bases passed the quality filters?</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3" style="list-style-type: decimal">
+<li>Based on the Read Length Histogram Basecalled Bases figure, what was your N50?</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="4" style="list-style-type: decimal">
+<li>Based on your Read Length Histogram Basecalled Bases, what was the length of the longest read you sequenced?</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="5" style="list-style-type: decimal">
+<li>Based on the Mux Scan Grouped figure, what was the maximum number of Active pores (green bars) in your run? What time?</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="6" style="list-style-type: decimal">
+<li>Based on the QScore figure, do you see a decrease in quality over time?</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="7" style="list-style-type: decimal">
+<li>Based on the output by the Run Debug Messages, what was the initial number of available pores? What was the minimum number of available pores?</li>
+</ol>
+</blockquote>
+<hr />
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="improving-illumina-read-quality.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assembly-methods-for-short-read-sequencing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-nanopore.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

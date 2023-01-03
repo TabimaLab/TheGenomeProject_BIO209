@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Assembly Methods for Short Read Sequencing | The Genome Project: Excercise Guidebook</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Assembly Methods for Short Read Sequencing | The Genome Project: Excercise Guidebook" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Assembly Methods for Short Read Sequencing | The Genome Project: Excercise Guidebook" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Javier F. Tabima Restrepo" />
+
+
+<meta name="date" content="2023-01-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="nanopore-sequencing.html"/>
+<link rel="next" href="hybrid-assembly-methods-for-short-and-long-reads.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="font-awesome.min.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The Genome Project: A Guidebook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> BIOL209 (The Genome Project) Excercise Guidebook</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-information-about-the-professor"><i class="fa fa-check"></i>Additional information about the professor</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="unix-challenge.html"><a href="unix-challenge.html"><i class="fa fa-check"></i><b>2</b> UNIX Challenge</a></li>
+<li class="chapter" data-level="3" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html"><i class="fa fa-check"></i><b>3</b> FASTQ files and understanding read qualities</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#sample-distribution"><i class="fa fa-check"></i><b>3.1</b> Sample distribution</a></li>
+<li class="chapter" data-level="3.2" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#basic-information-and-creating-backups"><i class="fa fa-check"></i><b>3.2</b> Basic information and creating backups</a></li>
+<li class="chapter" data-level="3.3" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#quality-control"><i class="fa fa-check"></i><b>3.3</b> Quality Control</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#evaluating-qc-of-fastq-using-fastqc"><i class="fa fa-check"></i><b>3.3.1</b> Evaluating QC of FASTQ using FastQC</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="laboratory-techniques-for-dna-extraction.html"><a href="laboratory-techniques-for-dna-extraction.html"><i class="fa fa-check"></i><b>4</b> Laboratory techniques for DNA extraction</a></li>
+<li class="chapter" data-level="5" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html"><i class="fa fa-check"></i><b>5</b> Improving Illumina Read Quality</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#running-trimmomatic"><i class="fa fa-check"></i><b>5.1</b> Running Trimmomatic</a></li>
+<li class="chapter" data-level="5.2" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#evaluating-quality-of-processed-reads"><i class="fa fa-check"></i><b>5.2</b> Evaluating quality of processed reads</a></li>
+<li class="chapter" data-level="5.3" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#requirements-for-processing-your-reads"><i class="fa fa-check"></i><b>5.3</b> Requirements for processing your reads</a></li>
+<li class="chapter" data-level="5.4" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#what-to-turn-in"><i class="fa fa-check"></i><b>5.4</b> What to turn in?</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="nanopore-sequencing.html"><a href="nanopore-sequencing.html"><i class="fa fa-check"></i><b>6</b> Nanopore Sequencing</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="nanopore-sequencing.html"><a href="nanopore-sequencing.html#summarizing-our-nanopore-sequencing"><i class="fa fa-check"></i><b>6.1</b> Summarizing our Nanopore sequencing</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html"><i class="fa fa-check"></i><b>7</b> Assembly Methods for Short Read Sequencing</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#comparing-between-k-mers-in-genome-assembly"><i class="fa fa-check"></i><b>7.1</b> Comparing between k-mers in genome assembly</a></li>
+<li class="chapter" data-level="7.2" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#using-a-multi-k-mer-approach-to-avoid-manual-k-mer-selection"><i class="fa fa-check"></i><b>7.2</b> Using a multi-K-mer approach to avoid manual k-mer selection</a></li>
+<li class="chapter" data-level="7.3" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#cleaning-the-assembly-and-detecting-contamination"><i class="fa fa-check"></i><b>7.3</b> Cleaning the assembly and detecting contamination</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#sketch-assay"><i class="fa fa-check"></i><b>7.3.1</b> <strong>Sketch</strong> assay</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#coverage-and-taxonomy-detection-assay"><i class="fa fa-check"></i><b>7.4</b> Coverage and Taxonomy detection assay</a></li>
+<li class="chapter" data-level="7.5" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#extracting-the-scaffolds-of-interest"><i class="fa fa-check"></i><b>7.5</b> Extracting the scaffolds of interest</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="hybrid-assembly-methods-for-short-and-long-reads.html"><a href="hybrid-assembly-methods-for-short-and-long-reads.html"><i class="fa fa-check"></i><b>8</b> Hybrid Assembly Methods for Short and Long Reads</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hybrid-assembly-methods-for-short-and-long-reads.html"><a href="hybrid-assembly-methods-for-short-and-long-reads.html#hybrid-assembly-using-unicycler"><i class="fa fa-check"></i><b>8.1</b> Hybrid assembly using <code>Unicycler</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html"><i class="fa fa-check"></i><b>9</b> Gene Prediction Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#installing-prokka"><i class="fa fa-check"></i><b>9.1</b> Installing prokka</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#installing-the-prokka-environment-and-program"><i class="fa fa-check"></i><b>9.1.1</b> Installing the prokka environment and program</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#annotating-the-genomes-using-prokka"><i class="fa fa-check"></i><b>9.2</b> Annotating the genomes using prokka</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#summarizing-the-results-from-prokka"><i class="fa fa-check"></i><b>9.2.1</b> Summarizing the results from prokka</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Genome Project: Excercise Guidebook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="assembly-methods-for-short-read-sequencing" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Assembly Methods for Short Read Sequencing<a href="assembly-methods-for-short-read-sequencing.html#assembly-methods-for-short-read-sequencing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="objectives">
+<p>
+<em>Objectives</em>
+</p>
+<ol style="list-style-type: decimal">
+<li>
+</li>
+<li>
+</li>
+<li>
+</li>
+</ol>
+</div>
+<div class="rmdwarning">
+<p>
+<strong>Recommended:</strong> Create a folder inside of your data
+folder called <code>assembly</code> and run everything there.
+</p>
+</div>
+<hr />
+<div id="comparing-between-k-mers-in-genome-assembly" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Comparing between k-mers in genome assembly<a href="assembly-methods-for-short-read-sequencing.html#comparing-between-k-mers-in-genome-assembly" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First, lets test different k-mers and observe how it affects the assembly.</p>
+<p>We will use <code>SPADES</code>, one of the best assemblers available currently, to assemble our data.</p>
+<ol style="list-style-type: decimal">
+<li>Using your <strong>cleaned</strong> and <strong>raw</strong> reads, choose one of the following K values (7, 21, 47) and run <code>SPADES</code> by modifying the following code</li>
+</ol>
+<pre><code>python3 /Smaug_SSD/bin/SPAdes-3.13.0-Linux/bin/spades.py -t 3 -k k_value -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o spades_k_value</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Check the stats of your assembly by using the <code>stats.sh</code> program from BBMAP as such:</li>
+</ol>
+<pre><code>stats.sh in=spades_k_value/scaffolds.fasta</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Fill the following table.</li>
+</ol>
+<div class="rmdquestion">
+<table>
+<thead>
+<tr class="header">
+<th>
+Dataset
+</th>
+<th>
+K-value
+</th>
+<th>
+Number of scaffolds
+</th>
+<th>
+%GC
+</th>
+<th>
+N50
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+Raw reads
+</td>
+<td>
+7
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+Raw reads
+</td>
+<td>
+21
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Raw reads
+</td>
+<td>
+47
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+Cleaned reads
+</td>
+<td>
+7
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+Cleaned reads
+</td>
+<td>
+21
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+Cleaned reads
+</td>
+<td>
+47
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Answer the following questions:</li>
+</ol>
+<div class="rmdquestion">
+<ol style="list-style-type: decimal">
+<li>
+Define Kmer using your own words
+</li>
+<li>
+Define N50 and L90 using your own words
+</li>
+<li>
+Based on your results and the table you filled, what is the best
+K-mer value?
+</li>
+</ol>
+</div>
+<hr />
+</div>
+<div id="using-a-multi-k-mer-approach-to-avoid-manual-k-mer-selection" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Using a multi-K-mer approach to avoid manual k-mer selection<a href="assembly-methods-for-short-read-sequencing.html#using-a-multi-k-mer-approach-to-avoid-manual-k-mer-selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As we can tell, K-mer size affects tje assemblies. That means we will have to test multiple K-mer values to find which combination of k-mers is the best one for our assembly.</p>
+<p>Luckily, there are programs that will choose the number of optimal k-mers to be tested and will select the best assembly as a final product.</p>
+<p><code>Unicycler</code> is an assembly program that doesn’t exactly that. Its a program that is specific for prokariotic organisms, so it fits our genomes perfectly.</p>
+<p>The <code>Unicycler</code> program is super cool as it uses a lot of different programs (such as <code>SPADES</code>, <code>Racon</code>, <code>Pilon</code> and others) to optimize the assemblies for bacterial/archaeal organisms.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Run <code>Unicycler</code> for your <strong>clean</strong> and <strong>raw</strong> reads by modifying the following command:</li>
+</ol>
+<pre><code>unicycler -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o unycycler_raw/clean</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li><p>After the assembly has finished, evaluate the scaffolds using <code>stats.sh</code> and create a table below with the results.</p></li>
+<li><p>Answer the following questions:</p></li>
+</ol>
+<div class="rmdquestion">
+<ol start="4" style="list-style-type: decimal">
+<li>
+What was the best K-mer value selected by Unicycler?
+</li>
+<li>
+What assembly was better? Any of the SPADES assemblies or the
+Unicycler?
+</li>
+</ol>
+</div>
+<ol start="8" style="list-style-type: decimal">
+<li>We can calculate the coverage for the best assembly by using <code>bwa</code> to map the reads to our best assembly as such:</li>
+</ol>
+<pre><code>bwa index best_assembly.fasta
+bwa mem -t 4 best_assembly.fasta paired_ends_R1.fastq.gz paired_ends_R2.fastq.gz | samtools view -S -b | samtools sort -O bam -o mapped.bam
+samtools index mapped.bam</code></pre>
+<p>Where <code>best_assembly.fasta</code> is your selected assembly, and your output is <code>mapped.bam</code>. We will learn more about <code>bam</code> files later on the course.</p>
+<p>And then, use the <code>pileup.sh</code> program to summarize the coverage results as such:</p>
+<pre><code>pileup.sh in=mapped.bam out=stats.txt</code></pre>
+<div class="rmdquestion">
+<ol start="6" style="list-style-type: decimal">
+<li>
+Create a table summarizing the best assembly with coverage
+information:
+</li>
+</ol>
+<table>
+<colgroup>
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>
+Dataset
+</th>
+<th>
+Assembly software
+</th>
+<th>
+Number of reads
+</th>
+<th>
+Number of scaffolds
+</th>
+<th>
+%GC
+</th>
+<th>
+N50
+</th>
+<th>
+L90
+</th>
+<th>
+Average coverage
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+</div>
+<div id="cleaning-the-assembly-and-detecting-contamination" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Cleaning the assembly and detecting contamination<a href="assembly-methods-for-short-read-sequencing.html#cleaning-the-assembly-and-detecting-contamination" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So, you think we have the best assembly? NOPE. We still have some work to do.</p>
+<p>We have a little problem with our data, and that is that these bacteria might have grown with some other species.</p>
+<p>So, chances are the DNA extraction also includes other bacteria that are not <em>Synechococcus</em>. How can we check this?</p>
+<p>A. We do a <strong>Sketch</strong> assay that will tell us if there is DNA from other species in our genomes
+B. We do a coverage and taxonomy detection assay to determine the number and type of contaminants</p>
+<p>We will be doing both in this laboratory assignment.</p>
+<div id="sketch-assay" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> <strong>Sketch</strong> assay<a href="assembly-methods-for-short-read-sequencing.html#sketch-assay" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Sketch assay is a method of rapidly comparing your assembly results k-mers against databases populated with different reference organisms (such as RefSeq from NCBI).
+The method it uses is to create a <strong>hash</strong>. A Hash is a function that converts a large object into a smaller one. Then, you compare this hashes against the hashes from the reference databases to see what your genome looks like.
+This means that you can see if your genome has contamination from other organisms very rapidly.</p>
+<p>Lets do a sketch assay for the assemblies:</p>
+<ol start="9" style="list-style-type: decimal">
+<li>Obtain the sketch for your assembled genome and compare it against the sketch of the RefSeq datasets using <code>sendsketch.sh</code> as such:</li>
+</ol>
+<pre><code>sendsketch.sh in=best_assembly.fasta refseq</code></pre>
+<p>Check the results of the program. The columns <code>WKID KID ANI SSU Complt Matches Unique</code> represent the <code>Weighted k-mer identity</code>, <code>K-mer identity</code>, <code>Average nucelotide identity</code>, <code>16S identity by alignment</code>, <code>Genome completeness</code>, <code>The number of shared kmers between query and ref</code>, <code>The number of shared kmers between query and ref, and no other ref.</code></p>
+<p>So, if your result is 100% in the <code>WKID</code> against <em>Synechococcus</em>, that means that 100% of the k-mers from your assembly match the k-mers from <em>Synechococcus</em>.</p>
+<ol start="10" style="list-style-type: decimal">
+<li>Answer the following questions:</li>
+</ol>
+<div class="rmdquestion">
+<ol start="7" style="list-style-type: decimal">
+<li>
+What are the <strong>GENUS</strong> with higher WKID scores?
+</li>
+<li>
+What is the WKID score of your assembly when compared to
+<em>Synechococcus</em>?
+</li>
+<li>
+Summarize you results and what they mean
+</li>
+</ol>
+</div>
+<hr />
+</div>
+</div>
+<div id="coverage-and-taxonomy-detection-assay" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Coverage and Taxonomy detection assay<a href="assembly-methods-for-short-read-sequencing.html#coverage-and-taxonomy-detection-assay" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>Before we start do this:</p>
+</blockquote>
+<pre><code>conda init bash</code></pre>
+<p>Then, log out and log in again.</p>
+<hr />
+<p>Now we suspect that our sequences have a lot of environmental contaminants, but we don’t know which of the scaffolds are from our bacteria of interest or which ones are from contaminants. This is because the results from the <code>sendsketch.sh</code> assay are across the entire assembly.To have a good assemblythat <strong>only</strong> respresnets our species of interest we should identify and remove all scaffolds that are not matching the taxa we are interested in.</p>
+<p>To do this, we use <a href="https://blobtools.readme.io/docs"><code>blobtools</code></a>. <code>Blobtools</code> determines the taxonomic assignment and the coverage for <strong>every single scaffold</strong> in your assembly!</p>
+<p><code>Blobtools</code> needs three files:</p>
+<ul>
+<li>Your assembly in <code>FASTA</code> format</li>
+<li>Your <code>BAM</code> file with mapped reads to your best assembly (<code>mapped.bam</code>). This will assess the coverage for each scaffold, as contaminant scaffolds tend to have a different coverage than scaffolds from our species of interest.</li>
+<li>A <code>NCBI BLAST</code> table where each scaffold is compared to the NCBI database. This will tell us the taxonomic assignment of each scaffold.</li>
+</ul>
+<p>Then, <code>blobtools</code> will put all the information together and provide us with two main results:</p>
+<ul>
+<li>A list of the taxonomic assignment and coverage of each scaffold</li>
+<li>A plot that shows the taxonomic assignment and coverage of each scaffold</li>
+</ul>
+<p>Let’s, then, use blobplots and create the taxonomic and coverage assay for our assembled scaffolds.</p>
+<p>As of now, we have two files:
+- Your assembly in <code>FASTA</code> format
+- Your <code>BAM</code> file with mapped reads to your best assembly (<code>mapped.bam</code>) from <strong>step 8</strong> in this lab</p>
+<p>We are missing the BLAST taxonomic assignments</p>
+<ol start="11" style="list-style-type: decimal">
+<li>Do a <code>BLAST</code> search of our scaffolds against NCBI’s <code>nt</code> database by first creating a new folder called <code>blobtools</code> and running everything there:</li>
+</ol>
+<pre><code>mkdir blobtools
+cd blobtools
+blastn -num_threads 4 -task megablast -query best_assembly.fasta -db nt -outfmt &#39;6 qseqid staxids bitscore std&#39; -max_target_seqs 1 -max_hsps 1  -evalue 1e-25 -out best_assembly.blast</code></pre>
+<p>Where <code>best_assembly.fasta</code> is you assembly file, <code>-db</code> is the <code>nt</code> database from <code>NCBI</code></p>
+<ol start="12" style="list-style-type: decimal">
+<li>Answer the following questions using your knowledge from <code>MBB 101</code></li>
+</ol>
+<div class="rmdquestion">
+<ol start="10" style="list-style-type: decimal">
+<li>
+What <code>blast</code> program are we using and what does it mean?
+What is the <code>nt</code> database?
+</li>
+<li>
+What do the <code>-max_target_seqs</code> and <code>-max_hsps</code>
+flags mean?
+</li>
+<li>
+What is the e-value used as threshold? What does e-value mean?
+</li>
+</ol>
+</div>
+<ol start="13" style="list-style-type: decimal">
+<li>Now, after <code>BLAST</code> is done we have all the elements to run <code>blobltools</code> as such:</li>
+</ol>
+<pre><code>  blobtools create -i best_assembly.fasta -b mapped.bam -t best_assembly.blast -o blobltools_out</code></pre>
+<p>Where <code>-i</code> is your assembly, <code>-b</code> is the <code>BAM</code> file of reads mapped to the assembly, <code>-t</code> is the <code>BLAST</code> output, and <code>-o</code> is the output name for the run.</p>
+<ol start="14" style="list-style-type: decimal">
+<li><code>Blobtools</code> needs a two additional steps in order to visualize and plot the results as this:</li>
+</ol>
+<pre><code>blobtools view -i blobltools_out.blobDB.json;
+blobtools plot -i blobltools_out.blobDB.json</code></pre>
+<ol start="15" style="list-style-type: decimal">
+<li>Let’s download the plots in the <code>.png</code> files.</li>
+</ol>
+<p>the <code>blobtools_out.blobDB.json.bestsum.phylum.p8.span.100.blobplot.read_cov.bam0.png</code> shows the percentage of all taxonomic assignments in our scaffold.</p>
+<ol start="16" style="list-style-type: decimal">
+<li>Answer the following questions:</li>
+</ol>
+<div class="rmdquestion">
+<ol start="13" style="list-style-type: decimal">
+<li>
+Include the image.
+</li>
+<li>
+What is the taxonomical unit with the highest percentage of
+scaffolds in our assembly?
+</li>
+<li>
+What is the percentage of scaffolds with assignment to
+<em>Synechococcus</em>?
+</li>
+</ol>
+</div>
+<p>The <code>blobtools_out.blobDB.json.bestsum.phylum.p8.span.100.blobplot.bam0.png</code> file is a blobplot that shows three main things:</p>
+<ol style="list-style-type: decimal">
+<li><strong>In Top</strong>: A length (span) vs. GC content plot that shows the size of each scaffold versus its GC content. The colors represent the taxonomic assignment</li>
+<li><strong>In the middle</strong>: A Bubbleplot of coverage vs GC content for each scaffold. Larger the circle, larger the scaffold. The colors represent the taxonomic assignment</li>
+<li><strong>In the right</strong>: A coverage vs. length (span) plot that shows the coverage of each scaffold versus its length The colors represent the taxonomic assignment</li>
+</ol>
+<p>What this plot shows us is the differences between all the scaffolds assembled. We can see, here, how the contaminants look versus our desired sequence.</p>
+<ol start="17" style="list-style-type: decimal">
+<li>Answer the following questions:</li>
+</ol>
+<div class="rmdquestion">
+<ol start="16" style="list-style-type: decimal">
+<li>
+Include the image.
+</li>
+<li>
+What can you say about this plot?
+</li>
+</ol>
+</div>
+<ol start="18" style="list-style-type: decimal">
+<li>Back in the cluster, check the <code>blobtools_out.blobDB.json.bestsum.phylum.p8.span.100.blobplot.stats.txt</code> file. That file contains a summary of all the stats from <code>blobtools</code>. Copy and paste the results into this page: <a href="https://www.tablesgenerator.com/markdown_tables" class="uri">https://www.tablesgenerator.com/markdown_tables</a> and copy and paste the result below:</li>
+</ol>
+<div class="rmdquestion">
+<ol start="18" style="list-style-type: decimal">
+<li>
+Add table here
+</li>
+</ol>
+</div>
+<p>Here’s what each column means:</p>
+<ul>
+<li><code>name</code>: Best taxonomic hit</li>
+<li><code>colour</code>: Color used for the plots</li>
+<li><code>count_visible</code>: Number of scaffolds associated with the taxonomic hit</li>
+<li><code>count_visible_perc</code>: Percentage of assembly scaffolds associated with the taxonomic hit</li>
+<li><code>span_visible</code>: Number of bases associated with the taxonomic hit</li>
+<li><code>span_visible_perc</code>: Percentage of total bases associated with the taxonomic hit</li>
+<li><code>n50</code>: N50 per taxonomic hi</li>
+<li><code>gc_mean</code>: Mean GC content per taxonomic hit</li>
+<li><code>gc_std</code>: Standard deviation of GC content per taxonomic hit</li>
+<li><code>bam0_mean</code>: Mean coverage per taxonomic hit</li>
+<li><code>bam0_std</code>: Standard deviation of coverage per taxonomic hit</li>
+<li><code>bam0_read_map</code>: Number of reads mapped to the taxonomic hit</li>
+<li><code>bam0_read_map_p</code>: Percentage of reads mapped to the taxonomic hit</li>
+</ul>
+<ol start="19" style="list-style-type: decimal">
+<li>Answer the following questions:</li>
+</ol>
+<div class="rmdquestion">
+<ol start="19" style="list-style-type: decimal">
+<li>
+What is the most represented taxonomic hit in your dataset? How did
+you come to that conclusion?
+</li>
+<li>
+What about our Cyanobacteria? Can you summarize the results in your
+own words?
+</li>
+</ol>
+</div>
+<ol start="19" style="list-style-type: decimal">
+<li><p>Finally, to clean the assembly we will extract the scaffolds that match Cyanobacteria. The information of the taxonomic assignment for each scaffold is found in the <code>blobtools_out.blobDB.table.txt</code>.</p></li>
+<li><p>Open the first 20 lines of the file using the program of your choice.</p></li>
+</ol>
+<p>Here’s what each column mean:</p>
+<ul>
+<li><code>name</code>: Name of the sequence</li>
+<li><code>length</code>: Total length of the sequence, i.e. count(A, G, C, T, N)</li>
+<li><code>GC</code>: GC content percentage of the sequence, i.e. count(G, C)/count(A, G, C, T)</li>
+<li><code>N</code>: Number of N’s in the sequence, i.e. count(N)</li>
+<li><code>bam0</code>: Coverage from bam0 (see main header for filename)</li>
+<li><code>phylum.t.6%s</code>: The assigned taxonomy of the sequence at the taxonomic rank of “phylum” under the tax-rule “best-sum”</li>
+<li><code>phylum.s.7%s</code>: The sum of scores for the taxonomy of the sequence at the taxonomic rank of “phylum” under the tax-rule “best-sum”</li>
+<li><code>phylum.c.8</code>: The c-index for the taxonomy of the sequence at the taxonomic rank of “phylum” under the tax-rule “best-sum”</li>
+</ul>
+<ol start="21" style="list-style-type: decimal">
+<li>Answer the following question:</li>
+</ol>
+<div class="rmdquestion">
+<ol start="21" style="list-style-type: decimal">
+<li>
+How can you use this file to extract the scaffolds of interest?
+</li>
+</ol>
+</div>
+<hr />
+</div>
+<div id="extracting-the-scaffolds-of-interest" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Extracting the scaffolds of interest<a href="assembly-methods-for-short-read-sequencing.html#extracting-the-scaffolds-of-interest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The final step of our assembly is to extract all the scaffolds that have cyanobacterial associations.</p>
+<p>We can extract those scaffolds by using the <code>blobtools seqfilter</code> program. This program can be ran as such:</p>
+<pre><code>blobtools seqfilter -i FASTA -l LIST -o PREFIX &gt; Cynaobacteria_scaffolds.fasta
+
+blobtools seqfilter -i assembly.fasta -l bplot/cyano_scaffs.txt -o Cyano_scaffold</code></pre>
+<p>Where <code>-i</code> is your assembly, <code>-l</code> is the list of sequence names you want to extract, and <code>-o</code> is the new names for the new assembly.</p>
+<p>So, we have the <code>-i</code> and <code>-o</code> elements.</p>
+<ol start="22" style="list-style-type: decimal">
+<li>Answer the following question:</li>
+</ol>
+<div class="rmdquestion">
+<ol start="22" style="list-style-type: decimal">
+<li>
+Using the command line tools we have learnt before, how do we
+extract everything that is Cyanobacteria from the
+<code>blobtools_out.blobDB.table.txt</code> to create the required file
+by <code>-l</code>? (Hint, use the <code>grep</code> and
+<code>cut</code> commands in a pipe.)
+</li>
+</ol>
+</div>
+<div class="rmdwarning">
+<p>
+This is an example of how the file should look like:
+</p>
+<p>
+<code> $ head list_of_cyano_scaffolds.txt
+</p>
+<p>
+4
+</p>
+<p>
+8
+</p>
+<p>
+21
+</p>
+<p>
+30
+</p>
+<p>
+34
+</p>
+<p>
+</code>
+</p>
+</div>
+<div class="rmdquestion">
+<ol start="23" style="list-style-type: decimal">
+<li>
+Run the <code>blobtools seqfilter</code> command and extract the
+cyanobacterial reads. Then use the <code>stats.sh</code> command in the
+new extracted files (your final assembly). What are the stats? Create a
+table below.
+</li>
+<li>
+Finally, how can you check rapidly that there is no contamination in
+the new assembly? (Hint: Use a program that compares
+<code>sketches</code>). Paste the result below.
+</li>
+<li>
+Summarize your final assembly in your own words:
+</li>
+</ol>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="nanopore-sequencing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hybrid-assembly-methods-for-short-and-long-reads.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-denovo.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 FASTQ files and understanding read qualities | The Genome Project: Excercise Guidebook</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 FASTQ files and understanding read qualities | The Genome Project: Excercise Guidebook" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 FASTQ files and understanding read qualities | The Genome Project: Excercise Guidebook" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Javier F. Tabima Restrepo" />
+
+
+<meta name="date" content="2023-01-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="unix-challenge.html"/>
+<link rel="next" href="laboratory-techniques-for-dna-extraction.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="font-awesome.min.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The Genome Project: A Guidebook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> BIOL209 (The Genome Project) Excercise Guidebook</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-information-about-the-professor"><i class="fa fa-check"></i>Additional information about the professor</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="unix-challenge.html"><a href="unix-challenge.html"><i class="fa fa-check"></i><b>2</b> UNIX Challenge</a></li>
+<li class="chapter" data-level="3" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html"><i class="fa fa-check"></i><b>3</b> FASTQ files and understanding read qualities</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#sample-distribution"><i class="fa fa-check"></i><b>3.1</b> Sample distribution</a></li>
+<li class="chapter" data-level="3.2" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#basic-information-and-creating-backups"><i class="fa fa-check"></i><b>3.2</b> Basic information and creating backups</a></li>
+<li class="chapter" data-level="3.3" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#quality-control"><i class="fa fa-check"></i><b>3.3</b> Quality Control</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="fastq-files-and-understanding-read-qualities.html"><a href="fastq-files-and-understanding-read-qualities.html#evaluating-qc-of-fastq-using-fastqc"><i class="fa fa-check"></i><b>3.3.1</b> Evaluating QC of FASTQ using FastQC</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="laboratory-techniques-for-dna-extraction.html"><a href="laboratory-techniques-for-dna-extraction.html"><i class="fa fa-check"></i><b>4</b> Laboratory techniques for DNA extraction</a></li>
+<li class="chapter" data-level="5" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html"><i class="fa fa-check"></i><b>5</b> Improving Illumina Read Quality</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#running-trimmomatic"><i class="fa fa-check"></i><b>5.1</b> Running Trimmomatic</a></li>
+<li class="chapter" data-level="5.2" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#evaluating-quality-of-processed-reads"><i class="fa fa-check"></i><b>5.2</b> Evaluating quality of processed reads</a></li>
+<li class="chapter" data-level="5.3" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#requirements-for-processing-your-reads"><i class="fa fa-check"></i><b>5.3</b> Requirements for processing your reads</a></li>
+<li class="chapter" data-level="5.4" data-path="improving-illumina-read-quality.html"><a href="improving-illumina-read-quality.html#what-to-turn-in"><i class="fa fa-check"></i><b>5.4</b> What to turn in?</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="nanopore-sequencing.html"><a href="nanopore-sequencing.html"><i class="fa fa-check"></i><b>6</b> Nanopore Sequencing</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="nanopore-sequencing.html"><a href="nanopore-sequencing.html#summarizing-our-nanopore-sequencing"><i class="fa fa-check"></i><b>6.1</b> Summarizing our Nanopore sequencing</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html"><i class="fa fa-check"></i><b>7</b> Assembly Methods for Short Read Sequencing</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#comparing-between-k-mers-in-genome-assembly"><i class="fa fa-check"></i><b>7.1</b> Comparing between k-mers in genome assembly</a></li>
+<li class="chapter" data-level="7.2" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#using-a-multi-k-mer-approach-to-avoid-manual-k-mer-selection"><i class="fa fa-check"></i><b>7.2</b> Using a multi-K-mer approach to avoid manual k-mer selection</a></li>
+<li class="chapter" data-level="7.3" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#cleaning-the-assembly-and-detecting-contamination"><i class="fa fa-check"></i><b>7.3</b> Cleaning the assembly and detecting contamination</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#sketch-assay"><i class="fa fa-check"></i><b>7.3.1</b> <strong>Sketch</strong> assay</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#coverage-and-taxonomy-detection-assay"><i class="fa fa-check"></i><b>7.4</b> Coverage and Taxonomy detection assay</a></li>
+<li class="chapter" data-level="7.5" data-path="assembly-methods-for-short-read-sequencing.html"><a href="assembly-methods-for-short-read-sequencing.html#extracting-the-scaffolds-of-interest"><i class="fa fa-check"></i><b>7.5</b> Extracting the scaffolds of interest</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="hybrid-assembly-methods-for-short-and-long-reads.html"><a href="hybrid-assembly-methods-for-short-and-long-reads.html"><i class="fa fa-check"></i><b>8</b> Hybrid Assembly Methods for Short and Long Reads</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="hybrid-assembly-methods-for-short-and-long-reads.html"><a href="hybrid-assembly-methods-for-short-and-long-reads.html#hybrid-assembly-using-unicycler"><i class="fa fa-check"></i><b>8.1</b> Hybrid assembly using <code>Unicycler</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="9" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html"><i class="fa fa-check"></i><b>9</b> Gene Prediction Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#installing-prokka"><i class="fa fa-check"></i><b>9.1</b> Installing prokka</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#installing-the-prokka-environment-and-program"><i class="fa fa-check"></i><b>9.1.1</b> Installing the prokka environment and program</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#annotating-the-genomes-using-prokka"><i class="fa fa-check"></i><b>9.2</b> Annotating the genomes using prokka</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="gene-prediction-methods.html"><a href="gene-prediction-methods.html#summarizing-the-results-from-prokka"><i class="fa fa-check"></i><b>9.2.1</b> Summarizing the results from prokka</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Genome Project: Excercise Guidebook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fastq-files-and-understanding-read-qualities" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> FASTQ files and understanding read qualities<a href="fastq-files-and-understanding-read-qualities.html#fastq-files-and-understanding-read-qualities" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="objectives">
+<p>
+<strong>Objectives</strong>
+</p>
+<ol style="list-style-type: decimal">
+<li>
+To learn about the most commonly used types of files for genome
+sequencing: FASTQ files
+</li>
+<li>
+To understand the information included in FASTQ files
+</li>
+<li>
+To identify good quality and bad quality reads from genome
+sequencing datasets
+</li>
+</ol>
+</div>
+<p>Today we will explore the previously Illumina sequenced genomes of the four <em>Synechococcus</em> samples the Ahlgren Lab has provided us to assemble and annotate.</p>
+<p>These genomes have been sequenced using the Illumina HiSeq platform, with <strong>Paired Ends</strong> and a <strong>read length of 150bp</strong>.</p>
+<p>Based on that information, answer the following questions:</p>
+<div class="rmdquestion">
+<ol style="list-style-type: decimal">
+<li>
+How many FASTQ files per sample do you expect (one FASTQ per sample
+or two FASTQ per sample)? Justify your answer.
+</li>
+<li>
+Do you expect all the reads to be of the same size? Which size?
+</li>
+</ol>
+</div>
+<div id="sample-distribution" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Sample distribution<a href="fastq-files-and-understanding-read-qualities.html#sample-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As mentioned in class, we have three main samples sequenced: <em>S165, S166 and S167</em>. We will use S165 as an example this week and then you will have to present the results of S166 and S167 as part of your lab report.</p>
+<p>We will use <code>Smaug</code> for our data analyses. <code>Smaug</code>, or the Great Worm, is the supercomputer we use in the <strong>T lab for mycological evolution</strong>. All the data is available in <code>Smaug</code>, so please be careful with the data provided.</p>
+<p>To access <code>Smaug</code> you need to connect via <a href="http://140.232.222.154:8787/" class="uri">http://140.232.222.154:8787/</a>. The username to access <code>Smaug</code> is the same of your Clark ID, but without the <code>@clarku.edu</code> (i.e. My user is <code>jtabima</code>)</p>
+<div class="rmdwarning">
+<p>
+The files are stored in a folder at
+<code>/Smaug_SSD/BIOL209/raw_illumina_data/raw_reads/SAMPLE_NAME</code>.
+<strong>EVERYTHING</strong> that you will do, run or program will be
+stored in those folders, so please be careful and <strong>DON’T ERASE
+THE GENOME FILES!</strong>
+</p>
+</div>
+</div>
+<div id="basic-information-and-creating-backups" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Basic information and creating backups<a href="fastq-files-and-understanding-read-qualities.html#basic-information-and-creating-backups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Inside of your sample folders, you should be able to find the genomes in <code>FASTQ</code> format.</p>
+<div class="rmdquestion">
+<ol start="3" style="list-style-type: decimal">
+<li>
+What are the genome files? Add the names here
+</li>
+</ol>
+</div>
+<p>In your home folder (<code>cd ~</code>) create a folder called <code>Genome_backup_SAMPLE_NAME</code> and copy the genome <code>FASTQ</code> files there.</p>
+<p>We know that <code>FASTQ</code> files are divided by four lines per each read:</p>
+<ul>
+<li>Sequence information</li>
+<li>DNA sequence</li>
+<li>Spacer</li>
+<li>Quality</li>
+</ul>
+<p>The <em>Sequence information</em> header (line 1) starts with a <code>@</code>, followed by a set of strings. The first set of strings, between the <code>@</code> and a colon (<code>:</code>) is my <em>sequence identifier</em>. Each read starts with that ID.</p>
+<p>Using that information, answer the following questions:</p>
+<div class="rmdquestion">
+<ol start="4" style="list-style-type: decimal">
+<li>
+What is your sample’s sequence ID?
+</li>
+<li>
+Can you use this information to count the number of reads per
+sample? Add the code below and the result. (Remember, to look at a GZ
+file without uncompressing it, use the <code>zcat</code> command)
+</li>
+<li>
+Are the number of reads between file R1 and R2 the same? Was this
+expected? Justify your answer.
+</li>
+</ol>
+</div>
+<p>Finally, summarize your results in this table:</p>
+<div class="rmdquestion">
+<table>
+<thead>
+<tr class="header">
+<th>
+Sample Name
+</th>
+<th>
+Sequence ID
+</th>
+<th>
+Number of Reads in R1
+</th>
+<th>
+Number of Reads in R2
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+030121_38
+</td>
+<td>
+NB551394
+</td>
+<td>
+2649963
+</td>
+<td>
+2649963
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+S165
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="odd">
+<td>
+S166
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr class="even">
+<td>
+S167
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+</div>
+<div id="quality-control" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Quality Control<a href="fastq-files-and-understanding-read-qualities.html#quality-control" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>High Throughput Sequencing technologies are not perfect. They can have various types of errors and contamination. Blindly using raw sequence data for downstream analysis is risky and will lead to poor, and/or inaccurate results.</p>
+<p>Here is a very helpful paper on how to “diagnose” issues with sequence data and how to improve these problems. Reading it will help you answers the questions and gain an understanding of common problems with high-throughput sequencing:</p>
+<p>Zhou, X. and Rokas, A., 2014. Prevention, diagnosis and treatment of high‐throughput sequencing data pathologies. Molecular ecology, 23(7), pp.1679-1700.</p>
+<p>The paper is available in the Canvas page of BIOL209 as well.</p>
+<div id="evaluating-qc-of-fastq-using-fastqc" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Evaluating QC of FASTQ using FastQC<a href="fastq-files-and-understanding-read-qualities.html#evaluating-qc-of-fastq-using-fastqc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To evaluate the quality of our data and to “diagnose” any problems, we will use software called <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>.</p>
+<p>This webpage can be used to learn more about each metric presented in the FastQC output: <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/" class="uri">http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/</a></p>
+<div id="running-fastqc" class="section level4 hasAnchor" number="3.3.1.1">
+<h4><span class="header-section-number">3.3.1.1</span> Running FastQC<a href="fastq-files-and-understanding-read-qualities.html#running-fastqc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li>Create a directory within you sample folder called <code>QC</code></li>
+<li>Running <code>FastQC</code> is super easy, just use the following command for each of your <code>FASTQ</code> files</li>
+</ol>
+<pre><code>/Smaug_SSD/bin/fastqc -o /your/output/directory/ sequence.file.fastq.gz</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Answer the following question:</li>
+</ol>
+<div class="rmdquestion">
+<ol start="7" style="list-style-type: decimal">
+<li>
+What are the outputs of FastQC?
+</li>
+</ol>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Download the <code>.html</code> files to your local machine (i.e. your computer). The files should be readable by any Internet Browser.</li>
+</ol>
+<hr />
+</div>
+<div id="analizing-and-describing-results" class="section level4 hasAnchor" number="3.3.1.2">
+<h4><span class="header-section-number">3.3.1.2</span> Analizing and describing results<a href="fastq-files-and-understanding-read-qualities.html#analizing-and-describing-results" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Once you’ve transferred the <code>.html</code> files to your computer, open it up in a web browser. You should see a nicely arranged page with 12 analyses (see the site for an example: <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/" class="uri">https://www.bioinformatics.babraham.ac.uk/projects/fastqc/</a>). Each of these analyses can tell us something about the quality of our data.</p>
+<p>Answer the following questions:</p>
+<div class="rmdquestion">
+<ol start="8" style="list-style-type: decimal">
+<li>
+<p>
+How many sequence reads makeup our dataset? Does this agree with
+your previous calculation?
+</p>
+</li>
+<li>
+<p>
+What is the read length of our data? Is this result expected or
+do we see weird results?
+</p>
+</li>
+<li>
+<p>
+What is the GC content of our data? Does this match
+expectations?
+</p>
+</li>
+<li>
+<p>
+Describe the sequence quality of the files (per base sequence
+quality, per tile sequence quality, per sequence quality
+score).
+</p>
+</li>
+<li>
+<p>
+In general, are the forward and reverse reads of similar quality?
+If they differ, how do they differ?
+</p>
+</li>
+<li>
+<p>
+Are there any issues with the various other metrics analyzed by
+FastQC (i.e. the red circles with the ‘X’ on the left under the
+‘Summary’ heading)? Do you notice any patterns that are puzzling or
+troubling with any of these analyses?
+</p>
+</li>
+<li>
+<p>
+Improving the Illumina Data: Outline rough plan to improve the
+Illumina Sequence data. You don’t need to provide specific program
+commands and parameters, but do take a look at some of the programs
+above to start thinking about how you would improve or filter the read
+data. By all means you can consider using other software if you find
+something interesting or useful.
+</p>
+</li>
+</ol>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="unix-challenge.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="laboratory-techniques-for-dna-extraction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-FASTQ.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
