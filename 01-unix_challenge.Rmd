@@ -30,9 +30,9 @@ Download the *Synechococcus sp.* WH 8101 files: `Syn_WH8101.asmb.fasta`, `Syn_WH
 
 7. In which of the three files can you find the genes `WP_174719562.1`, `WP_130130567.1`, and `WP_130130558.1` 
 
-8. Find the function for the genes `WP_130130185.1` and `WP_130130145.1` in the `Syn_WH8102.aa.fasta` and add them in a `R markdown table`
+8. Find the function for the genes `WP_130130185.1` and `WP_130130145.1` in the `Syn_WH8101.aa.fasta` and add them in a `R markdown table`
 
-9. How many genes with the `hypothetical protein` function can you find in the `Syn_WH8102.aa.fasta` file?
+9. How many genes with the `hypothetical protein` function can you find in the `Syn_WH8101.aa.fasta` file?
 
 10. Provide two more protein functions (annotations) and the number of genes associated with them
 
