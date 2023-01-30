@@ -32,7 +32,7 @@ We will use `Smaug` for our data analyses. `Smaug`, or the Great Worm, is the su
 To access `Smaug` you need to connect via http://140.232.222.154:8787/. The username to access `Smaug` is the same of your Clark ID, but without the `@clarku.edu` (i.e. My user is `jtabima`)
 
 ```{block, type='rmdwarning'}
-The files are stored in a folder at `/Smaug_SSD/BIOL209/raw_illumina_data/raw_reads/SAMPLE_NAME`. **EVERYTHING** that you will do, run or program will be stored in those folders, so please be careful and **DON'T ERASE THE GENOME FILES!**
+The files are stored in a folder at `/course_data/BIOL209/raw_illumina_data/raw_reads/SAMPLE_NAME`. **EVERYTHING** that you will do, run or program will be stored in those folders, so please be careful and **DON'T ERASE THE GENOME FILES!**
 ```
 
 ## Basic information and creating backups
@@ -122,7 +122,7 @@ Answer the following questions:
 
 9. What is the read length of our data? Is this result expected or do we see weird results?
 
-10. What is the GC content of our data? Does this match expectations?
+10. What is the GC content of our data ? Does this match expectations?
 
 11. Describe the sequence quality of the files (per base sequence quality, per tile sequence quality, per sequence quality score).
 
