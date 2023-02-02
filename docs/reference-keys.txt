@@ -10,7 +10,9 @@ analizing-and-describing-results
 laboratory-techniques-for-dna-extraction
 protocol-using-g20-qiagen-columns
 quantification-of-dna-using-qubit-and-nanodrop
-analytical-gel-for-dna-integrity-and-size
+qubit-flurescence-quantification
+nanodrop-dna-quality
+analytical-gel-for-dna-integrity-and-fragment-size
 dna-extraction-report
 improving-illumina-read-quality
 running-trimmomatic
