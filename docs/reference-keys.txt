@@ -8,7 +8,7 @@ evaluating-qc-of-fastq-using-fastqc
 running-fastqc
 analizing-and-describing-results
 laboratory-techniques-for-dna-extraction
-protocol-using-g20-qiagen-columns
+protocol-using-spin-columns
 quantification-of-dna-using-qubit-and-nanodrop
 qubit-flurescence-quantification
 nanodrop-dna-quality

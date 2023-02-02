@@ -16,7 +16,7 @@ We use a DNA extraction kit (Monarch Genomic DNA Purification Kit) to obtain  hi
 **Read pages 4-5 and 12-13 before coming to the lab so you can familiarize yourself with the protocol**
 
 
-## Protocol using G/20 QIAGEN columns
+## Protocol using spin columns
 
 1.	Harvest a maximum of up to 2 x 109 Gram-negative bacteria by centrifugation for 1 minute at> 12,000 x g. Discard supernatant.
 
