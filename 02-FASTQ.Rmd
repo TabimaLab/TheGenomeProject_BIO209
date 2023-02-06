@@ -130,5 +130,5 @@ Answer the following questions:
 
 13.	Are there any issues with the various other metrics analyzed by FastQC (i.e. the red circles with the ‘X’ on the left under the ‘Summary’ heading)? Do you notice any patterns that are puzzling or troubling with any of these analyses?
 
-14. Improving the Illumina Data: Outline rough plan to improve the Illumina Sequence data. You don’t need to provide specific program commands and parameters, but do take a look at some of the programs above to start thinking about how you would improve or filter the read data. By all means you can consider using other software if you find something interesting or useful. 
+14. Improving the Illumina Data: Outline rough plan to improve the Illumina Sequence data. You don’t need to provide specific program commands and parameters, but do take a look at some of the programs recommended by Zhou and Rokas (2019) to start thinking about how you would improve or filter the read data. By all means you can consider using other software if you find something interesting or useful. 
 ``` 
