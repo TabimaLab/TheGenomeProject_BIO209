@@ -13,7 +13,7 @@
 
 ***
 
-# Checking the S166 sample and trying to clean it as best as possible
+## Checking the S166 sample and trying to clean it as best as possible
 
 We have looked at the raw reads from S166 and have discovered that it has some possible errors and elements that may results in a poor assembly, errors in some sequences, over represented regions of the genome or even the present of contaminants.
 
