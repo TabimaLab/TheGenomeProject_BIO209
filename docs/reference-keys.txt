@@ -15,9 +15,7 @@ nanodrop-dna-quality
 analytical-gel-for-dna-integrity-and-fragment-size
 dna-extraction-report
 improving-illumina-read-quality
-running-trimmomatic
-evaluating-quality-of-processed-reads
-requirements-for-processing-your-reads
+checking-the-s166-sample-and-trying-to-clean-it-as-best-as-possible
 what-to-turn-in
 nanopore-sequencing
 summarizing-our-nanopore-sequencing

@@ -2,74 +2,62 @@
 
 ```{block, type='objectives'}
 
-**Objectives and goal**
+**Objectives**
 
-The goal of this challenge is to properly process the Illumina data in preparation for genome assembly. You work in your lab groups and use forward and reverse reads to completely remove and/or trim parts of the reads that are low quality and problematic while still maintaining the highest number of sequence data as possible. 
+* To understand quality control (QC) for sequencing experiments
+* To identify common errors in illumina sequencing
+* To propose solutions to QC issue
+* To learn how to use Trimmomatic
 
-How you decide to process, trim, and filter your reads is up to you. I'd recommend you use Trimmomatic, but if you want to write your own custom scripts feel welcome to do so. Be sure to consider the problems that came to light in the quality analysis from Lab 2. The key to this challenge is in how you use the various settings of available programs. Take a careful look at the manual pages for these tools to take advantage of all of their capabilities.
 ```
 
 ***
 
-## Running Trimmomatic
+# Checking the S166 sample and trying to clean it as best as possible
 
-I recommend you all check the slides of the **Short read sequencing** class as they have visual instructions on how to use `Trimmomatic`. Check the options!!
+We have looked at the raw reads from S166 and have discovered that it has some possible errors and elements that may results in a poor assembly, errors in some sequences, over represented regions of the genome or even the present of contaminants.
 
-To run `trimmomatic` in the cluster, modify the following template:
+The main ones you mentioned in class were:
+
+- A high percentage of adapters in the end of the R2 sequences
+- Reduced quality in the last 5-7 bases of the files
+- A set of reads that are smaller than the expected read length (150bp)
+- Reads with lower average quality than the maximum quality
+- A GC content distribution that is bimodal
+
+So **your homework is** to come up with how would you clean your data based on what we learnt in class and the slides of the **Short read sequencing** class using `Trimmomatic`. 
+
+To run `trimmomatic` in the SMAUG, modify the following template:
 
 ```
 java -jar /Smaug_SSD/bin/Trimmomatic-0.39/trimmomatic-0.39.jar PE -T 1 R1.fastq.gz R2.fastq.gz Processed_R1.fastq.gz Processed_R1.Unpaired.fastq.gz Processed_R2.fastq.gz Processed_R2.Unpaired.fastq.gz OPTIONS_FOR_TRIMMING
 ```
 
-Example for Illumina clip:
+Where the `R1.fastq.gz` and `R2.fastq.gz` are your forward and reverse FASTQ files (`NB0621_05_S166_R1_001.fastq.gz` and `NB0621_05_S166_R2_001.fastq.gz`).
+
+The `OPTIONS_FOR_TRIMMING` are the commands that you will use for cleaning. You can use more than one at a time, and the order **matters**. 
+
+So, if you want to:
+
+1. Remove the adapters
+2. Remove all reads with less than 145 bp
+
+The command will be:
 
 ```
-java -jar /Smaug_SSD/bin/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 1 NBP03_S165_R1_001.fastq.gz NBP03_S165_R2_001.fastq.gz IlluminaTrim_R1.fastq.gz IlluminaTrim_R1.Unpaired.fastq.gz lluminaTrim_R2.fastq.gz lluminaTrim_R2.Unpaired.fastq.gz ILLUMINACLIP:/Smaug_SSD/bin/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10:2:True
-```
-Check the `trimmomatic` web page for more info: https://github.com/usadellab/Trimmomatic
-
-I also expect you ask about what is an unpaired read and why are they part of the output.
-
-***
-
-## Evaluating quality of processed reads
-
-The team with the largest number of bases mapped to the reference genome of **Synechococcus** sequenced by the 2019 BIOL209 course will ‘win’ the competition. The srefernece sequence can be found at `/Smaug_SSD/BIOL209/Reference_Syn/GCA_013133755.1_ASM1313375v1_genomic.fasta`. We will evaluate the results on next week's lab. 
-
-However, if you want to evaluate the quality and quantity of your resulting fastq files, you must run a read alignment against the BIOL209 reference genome. I suggest that you test out your pipeline then run the mapping program to evaluate you results. Try different settings and repeat until you’re satisfied. Please be mindful of the space you are taking up in your folders, as the intermediate fastq files you generate for multiple tests and steps can add up. Please consider deleting any .fastq data along the way that you no longer need. After the exercise is complete, I’ll ask you delete any extraneous fastq files as well.
-
-Below is the command that you must use to generate the mapping output and evaluate the quantity of your resulting reads. The program is called `BBMap` (https://jgi.doe.gov/data-and-tools/bbtools/). We will learn more about read mapping in the upcoming weeks, but for this lab please use the following script:
-
-> Note: Be sure to copy the reference genome to a folder in your own account directory for bbsplit to work properly as it will generate a folder to store reference info.
-
-```
-/Smaug_SSD/bin/bbmap/bbmap.sh in=Processed_R1.fastq.gz in2=Processed_R2.fastq.gz ref=GCA_013133755.1_ASM1313375v1_genomic.fasta minid=0.90 threads=16 statsfile=stats_out.txt
-
+java -jar /Smaug_SSD/bin/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 1 NB0621_05_S166_R1_001.fastq.gz NB0621_05_S166_R1_001.fastq.gz Clean_S166_R1.fastq.gz Clean_S166_R1.Unpaired.fastq.gz Clean_S166_R2.fastq.gz Clean_S166_R2.Unpaired.fastq.gz ILLUMINACLIP:/Smaug_SSD/bin/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10:2:True MINLEN:145
 ```
 
-Check the `stats_out.txt` file as it will include your results as such: 
-
-```
-Read 1 data:      	pct reads	num reads 	pct bases	   num bases
-mapped:          	  0.4267% 	     8726 	  0.4267% 	     2181500
-```
-
-***
-
-## Requirements for processing your reads
-
-To make fair comparisons, the processing of your reads must meet these requirements:
-
-- All processed reads must have a minimum length of 36 bp.
-- Use a minimum read Phred quality score cutoff of 20.
-
-***
 
 ## What to turn in?
 
-Grading will be based on you providing:
+How would you clean the reads. This means:
 
-- The commands for your sequence processing pipeline
+- For each problem, plan a strategy (number of bases, quality threshold, adapters to be removed, etc.)
+- What commands would you use for your sequence processing pipeline
+
+**For extra points that will count as one extra lab (100 points)**:
+
 - The updated HTML of FASTQC before and after processing the reads
-- The location of your processed reads within `Smaug`
-- The output of BBmap's `statsfile` 
+- The location of your processed reads within Smaug
+

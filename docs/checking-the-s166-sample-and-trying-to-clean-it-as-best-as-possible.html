@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Nanopore Sequencing | The Genome Project: Excercise Guidebook</title>
+  <title>Chapter 6 Checking the S166 sample and trying to clean it as best as possible | The Genome Project: Excercise Guidebook</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Nanopore Sequencing | The Genome Project: Excercise Guidebook" />
+  <meta property="og:title" content="Chapter 6 Checking the S166 sample and trying to clean it as best as possible | The Genome Project: Excercise Guidebook" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Nanopore Sequencing | The Genome Project: Excercise Guidebook" />
+  <meta name="twitter:title" content="Chapter 6 Checking the S166 sample and trying to clean it as best as possible | The Genome Project: Excercise Guidebook" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -36,8 +36,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="checking-the-s166-sample-and-trying-to-clean-it-as-best-as-possible.html"/>
-<link rel="next" href="assembly-methods-for-short-read-sequencing.html"/>
+<link rel="prev" href="improving-illumina-read-quality.html"/>
+<link rel="next" href="nanopore-sequencing.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -159,51 +159,41 @@ set in the _output.yml file.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="nanopore-sequencing" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Chapter 7</span> Nanopore Sequencing<a href="nanopore-sequencing.html#nanopore-sequencing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="summarizing-our-nanopore-sequencing" class="section level2 hasAnchor" number="7.1">
-<h2><span class="header-section-number">7.1</span> Summarizing our Nanopore sequencing<a href="nanopore-sequencing.html#summarizing-our-nanopore-sequencing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Within the <code>/Smaug_SSD/BIOL209/nanopore_raw_data</code> folder you will find a <code>report_Nanopore_YOURSAMPLE.pdf</code> file. Download it and open it.</p>
+<div id="checking-the-s166-sample-and-trying-to-clean-it-as-best-as-possible" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Checking the S166 sample and trying to clean it as best as possible<a href="checking-the-s166-sample-and-trying-to-clean-it-as-best-as-possible.html#checking-the-s166-sample-and-trying-to-clean-it-as-best-as-possible" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We have looked at the raw reads from S166 and have discovered that it has some possible errors and elements that may results in a poor assembly, errors in some sequences, over represented regions of the genome or even the present of contaminants.</p>
+<p>The main ones you mentioned in class were:</p>
+<ul>
+<li>A high percentage of adapters in the end of the R2 sequences</li>
+<li>Reduced quality in the last 5-7 bases of the files</li>
+<li>A set of reads that are smaller than the expected read length (150bp)</li>
+<li>Reads with lower average quality than the maximum quality</li>
+<li>A GC content distribution that is bimodal</li>
+</ul>
+<p>So <strong>your homework is</strong> to come up with how would you clean your data based on what we learnt in class and the slides of the <strong>Short read sequencing</strong> class using <code>Trimmomatic</code>.</p>
+<p>To run <code>trimmomatic</code> in the SMAUG, modify the following template:</p>
+<pre><code>java -jar /Smaug_SSD/bin/Trimmomatic-0.39/trimmomatic-0.39.jar PE -T 1 R1.fastq.gz R2.fastq.gz Processed_R1.fastq.gz Processed_R1.Unpaired.fastq.gz Processed_R2.fastq.gz Processed_R2.Unpaired.fastq.gz OPTIONS_FOR_TRIMMING</code></pre>
+<p>Where the <code>R1.fastq.gz</code> and <code>R2.fastq.gz</code> are your forward and reverse FASTQ files (<code>NB0621_05_S166_R1_001.fastq.gz</code> and <code>NB0621_05_S166_R2_001.fastq.gz</code>).</p>
+<p>The <code>OPTIONS_FOR_TRIMMING</code> are the commands that you will use for cleaning. You can use more than one at a time, and the order <strong>matters</strong>.</p>
+<p>So, if you want to:</p>
 <ol style="list-style-type: decimal">
-<li>Answer the following questions:</li>
+<li>Remove the adapters</li>
+<li>Remove all reads with less than 145 bp</li>
 </ol>
-<hr />
-<blockquote>
-<ol style="list-style-type: decimal">
-<li>How many reads were generated by your Nanopore run?</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="2" style="list-style-type: decimal">
-<li>How many bases passed the quality filters?</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="3" style="list-style-type: decimal">
-<li>Based on the Read Length Histogram Basecalled Bases figure, what was your N50?</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="4" style="list-style-type: decimal">
-<li>Based on your Read Length Histogram Basecalled Bases, what was the length of the longest read you sequenced?</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="5" style="list-style-type: decimal">
-<li>Based on the Mux Scan Grouped figure, what was the maximum number of Active pores (green bars) in your run? What time?</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="6" style="list-style-type: decimal">
-<li>Based on the QScore figure, do you see a decrease in quality over time?</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="7" style="list-style-type: decimal">
-<li>Based on the output by the Run Debug Messages, what was the initial number of available pores? What was the minimum number of available pores?</li>
-</ol>
-</blockquote>
-<hr />
+<p>The command will be:</p>
+<pre><code>java -jar /Smaug_SSD/bin/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 1 NB0621_05_S166_R1_001.fastq.gz NB0621_05_S166_R1_001.fastq.gz Clean_S166_R1.fastq.gz Clean_S166_R1.Unpaired.fastq.gz Clean_S166_R2.fastq.gz Clean_S166_R2.Unpaired.fastq.gz ILLUMINACLIP:/Smaug_SSD/bin/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10:2:True MINLEN:145</code></pre>
+<div id="what-to-turn-in" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> What to turn in?<a href="checking-the-s166-sample-and-trying-to-clean-it-as-best-as-possible.html#what-to-turn-in" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>How would you clean the reads. This means:</p>
+<ul>
+<li>For each problem, plan a strategy (number of bases, quality threshold, adapters to be removed, etc.)</li>
+<li>What commands would you use for your sequence processing pipeline</li>
+</ul>
+<p><strong>For extra points that will count as one extra lab (100 points)</strong>:</p>
+<ul>
+<li>The updated HTML of FASTQC before and after processing the reads</li>
+<li>The location of your processed reads within Smaug</li>
+</ul>
 
 </div>
 </div>
@@ -212,8 +202,8 @@ set in the _output.yml file.</p>" />
           </div>
         </div>
       </div>
-<a href="checking-the-s166-sample-and-trying-to-clean-it-as-best-as-possible.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="assembly-methods-for-short-read-sequencing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="improving-illumina-read-quality.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="nanopore-sequencing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -244,7 +234,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-nanopore.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-illumina.Rmd",
 "text": "Edit"
 },
 "history": {
