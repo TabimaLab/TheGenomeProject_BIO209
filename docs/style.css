@@ -4,7 +4,13 @@ p.caption {
 }
 p code {
   white-space: inherit;
+  color:    #35dc00 ;
 }
+
+.code {
+  color:    #35dc00 ;
+}
+
 pre {
   word-break: normal;
   word-wrap: normal;
@@ -85,6 +91,26 @@ pre code {
 
 .rmdalert:before {
     content: "\f256";
+    font-family: FontAwesome;
+    left:10px;
+    position:absolute;
+    font-size: 45px;
+ }
+ 
+ 
+ .rmdtip {
+  padding: 1em 1em 1em 4em;
+  background:    #117a65   ;
+  color:    #ffffff ;
+  border: 4px solid  #16a085 ;
+  border-radius: 10px;
+  font-family: Arial;
+  font-size: 20px;
+  position:relative;
+}
+
+.rmdtip:before {
+    content: "\f6ed";
     font-family: FontAwesome;
     left:10px;
     position:absolute;

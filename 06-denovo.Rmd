@@ -4,17 +4,17 @@
 
 *Objectives*
 
-1.
-2.
-3.
-
+1. To understand the algorithms and programs used for De Novo assembly
+2. To test between different K-values and determine the best value for an assembly
+3. To compare between different assembly software for short read sequencing
+4. To identify metrics used to determine assembly quality
+5. To clean contaminants from genomic assemblies
 ```
 
 
 ```{block, type='rmdwarning'}
 **Recommended:**
 Create a folder inside of your data folder called `assembly` and run everything there.
-
 ```
 
 ***
@@ -30,6 +30,24 @@ We will use `SPADES`, one of the best assemblers available currently, to assembl
 ```
 python3 /Smaug_SSD/bin/SPAdes-3.13.0-Linux/bin/spades.py -t 3 -k k_value -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o spades_k_value
 ```
+
+```{block, type='rmdtip'}
+
+**Using the SMAUG scheduler `slurm`**
+
+Since we are using so many jobs at the same time, we have to start using a scheduler. 
+The scheduler works as a guardian of the computer that runs the jobs in the background without interfering with other processes in the computer.
+
+So, to use the scheduler, we do the following:
+
+sbatch -J name_of_the_job --wrap "command_to_be_run" -o name_of_log_file
+
+Then, check if the job is being run by using the squeue command.
+
+If the job is being run, you'll see the job in your screen.
+```
+
+
 
 2. Check the stats of your assembly by using the `stats.sh` program from BBMAP as such:
 
