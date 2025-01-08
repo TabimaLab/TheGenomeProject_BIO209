@@ -29,7 +29,7 @@ As mentioned in class, we have three main samples sequenced: *S165, S166 and S16
 
 We will use `Smaug` for our data analyses. `Smaug`, or the Great Worm, is the supercomputer we use in the **T lab for mycological evolution**. All the data is available in `Smaug`, so please be careful with the data provided.
 
-To access `Smaug` you need to connect via http://140.232.222.154:8787/. The username to access `Smaug` is the same of your Clark ID, but without the `@clarku.edu` (i.e. My user is `jtabima`)
+To access `Smaug` you need to connect via http://140.232.222.14:8787/. The username to access `Smaug` is the same of your Clark ID, but without the `@clarku.edu` (i.e. My user is `jtabima`)
 
 ```{block, type='rmdwarning'}
 The files are stored in a folder at `/course_data/BIOL209/raw_illumina_data/raw_reads/SAMPLE_NAME`. **EVERYTHING** that you will do, run or program will be stored in those folders, so please be careful and **DON'T ERASE THE GENOME FILES!**
