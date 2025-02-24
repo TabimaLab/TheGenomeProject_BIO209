@@ -25,7 +25,7 @@ Based on that information, answer the following questions:
 
 ## Sample distribution
 
-As mentioned in class, we have three main samples sequenced: *S165, S166 and S167*. We will use S165 as an example this week and then you will have to present the results of S166 and S167 as part of your lab report. 
+As mentioned in class, we have three main samples sequenced: *S165 and S167*. We will use S165 as an example this week and then you will have to present the results of S166 and S167 as part of your lab report. 
 
 We will use `Smaug` for our data analyses. `Smaug`, or the Great Worm, is the supercomputer we use in the **T lab for mycological evolution**. All the data is available in `Smaug`, so please be careful with the data provided.
 

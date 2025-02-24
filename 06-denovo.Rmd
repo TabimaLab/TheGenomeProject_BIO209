@@ -28,7 +28,7 @@ We will use `SPADES`, one of the best assemblers available currently, to assembl
 1. Using your **cleaned** and **raw** reads, choose one of the following K values (7, 21, 47) and run `SPADES` by modifying the following code
 
 ```
-python3 /Smaug_SSD/bin/SPAdes-3.13.0-Linux/bin/spades.py -t 3 -k k_value -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o spades_k_value
+python3 /Smaug_SSD/bin/SPAdes-4.0.0-Linux/bin/spades.py -t 3 -k k_value -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o spades_k_value
 ```
 
 ```{block, type='rmdtip'}
