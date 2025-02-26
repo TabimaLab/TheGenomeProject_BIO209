@@ -90,9 +90,23 @@ Luckily, there are programs that will choose the number of optimal k-mers to be 
 
 The `Unicycler` program is super cool as it uses a lot of different programs (such as `SPADES`, `Racon`, `Pilon` and others) to optimize the assemblies for bacterial/archaeal organisms.
 
+```{block, type='rmdwarning'}
+
+**Installing Unicycler**
+
+Before you can run unicycler you have to install it:
+
+`conda create -n unicycler_env python=3.9 -y`
+
+`conda install -c bioconda unicycler`
+
+```
+
+
 5. Run `Unicycler` for your **clean** and **raw** reads by modifying the following command:
 
 ```
+conda activate unicycler_env
 unicycler -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o unycycler_raw/clean
 ```
 
@@ -215,7 +229,7 @@ We are missing the BLAST taxonomic assignments
 ```
 mkdir blobtools
 cd blobtools
-blastn -num_threads 4 -task megablast -query best_assembly.fasta -db nt -outfmt '6 qseqid staxids bitscore std' -max_target_seqs 1 -max_hsps 1  -evalue 1e-25 -out best_assembly.blast
+blastn -num_threads 4 -task megablast -query best_assembly.fasta -db /course_data/blastdb/nt -outfmt '6 qseqid staxids bitscore std' -max_target_seqs 1 -max_hsps 1  -evalue 1e-25 -out best_assembly.blast
 ```
 
 Where `best_assembly.fasta` is you assembly file, `-db` is the `nt` database from `NCBI`

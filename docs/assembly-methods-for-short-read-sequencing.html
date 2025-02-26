@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Javier F. Tabima Restrepo" />
 
 
-<meta name="date" content="2025-02-24" />
+<meta name="date" content="2025-02-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -370,10 +370,25 @@ K-mer value?
 <p>Luckily, there are programs that will choose the number of optimal k-mers to be tested and will select the best assembly as a final product.</p>
 <p><code>Unicycler</code> is an assembly program that doesn’t exactly that. Its a program that is specific for prokariotic organisms, so it fits our genomes perfectly.</p>
 <p>The <code>Unicycler</code> program is super cool as it uses a lot of different programs (such as <code>SPADES</code>, <code>Racon</code>, <code>Pilon</code> and others) to optimize the assemblies for bacterial/archaeal organisms.</p>
+<div class="rmdwarning">
+<p>
+<strong>Installing Unicycler</strong>
+</p>
+<p>
+Before you can run unicycler you have to install it:
+</p>
+<p>
+<code>conda create -n unicycler_env python=3.9 -y</code>
+</p>
+<p>
+<code>conda install -c bioconda unicycler</code>
+</p>
+</div>
 <ol start="5" style="list-style-type: decimal">
 <li>Run <code>Unicycler</code> for your <strong>clean</strong> and <strong>raw</strong> reads by modifying the following command:</li>
 </ol>
-<pre><code>unicycler -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o unycycler_raw/clean</code></pre>
+<pre><code>conda activate unicycler_env
+unicycler -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o unycycler_raw/clean</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li><p>After the assembly has finished, evaluate the scaffolds using <code>stats.sh</code> and create a table below with the results.</p></li>
 <li><p>Answer the following questions:</p></li>
@@ -539,7 +554,7 @@ Summarize you results and what they mean
 </ol>
 <pre><code>mkdir blobtools
 cd blobtools
-blastn -num_threads 4 -task megablast -query best_assembly.fasta -db nt -outfmt &#39;6 qseqid staxids bitscore std&#39; -max_target_seqs 1 -max_hsps 1  -evalue 1e-25 -out best_assembly.blast</code></pre>
+blastn -num_threads 4 -task megablast -query best_assembly.fasta -db /course_data/blastdb/nt -outfmt &#39;6 qseqid staxids bitscore std&#39; -max_target_seqs 1 -max_hsps 1  -evalue 1e-25 -out best_assembly.blast</code></pre>
 <p>Where <code>best_assembly.fasta</code> is you assembly file, <code>-db</code> is the <code>nt</code> database from <code>NCBI</code></p>
 <ol start="12" style="list-style-type: decimal">
 <li>Answer the following questions using your knowledge from <code>MBB 101</code></li>
