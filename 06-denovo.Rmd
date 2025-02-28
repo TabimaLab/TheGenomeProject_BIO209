@@ -100,6 +100,10 @@ Before you can run unicycler you have to install it:
 
 `conda install -c bioconda unicycler`
 
+`conda init bash`
+
+`bash`
+
 ```
 
 
@@ -107,7 +111,7 @@ Before you can run unicycler you have to install it:
 
 ```
 conda activate unicycler_env
-unicycler -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o unycycler_raw/clean
+/Smaug_SSD/bin/Unicycler-0.5.1/unicycler-runner.py spades_path=/Smaug_SSD/bin/SPAdes-4.0.0-Linux/bin/spades.py -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o unycycler_raw/clean
 ```
 
 6. After the assembly has finished, evaluate the scaffolds using `stats.sh` and create a table below with the results.

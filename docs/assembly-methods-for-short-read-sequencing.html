@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Javier F. Tabima Restrepo" />
 
 
-<meta name="date" content="2025-02-25" />
+<meta name="date" content="2025-02-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -383,12 +383,18 @@ Before you can run unicycler you have to install it:
 <p>
 <code>conda install -c bioconda unicycler</code>
 </p>
+<p>
+<code>conda init bash</code>
+</p>
+<p>
+<code>bash</code>
+</p>
 </div>
 <ol start="5" style="list-style-type: decimal">
 <li>Run <code>Unicycler</code> for your <strong>clean</strong> and <strong>raw</strong> reads by modifying the following command:</li>
 </ol>
 <pre><code>conda activate unicycler_env
-unicycler -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o unycycler_raw/clean</code></pre>
+/Smaug_SSD/bin/Unicycler-0.5.1/unicycler-runner.py spades_path=/Smaug_SSD/bin/SPAdes-4.0.0-Linux/bin/spades.py -1 paired_ends_R1.fastq.gz -2 paired_ends_R2.fastq.gz -o unycycler_raw/clean</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li><p>After the assembly has finished, evaluate the scaffolds using <code>stats.sh</code> and create a table below with the results.</p></li>
 <li><p>Answer the following questions:</p></li>
