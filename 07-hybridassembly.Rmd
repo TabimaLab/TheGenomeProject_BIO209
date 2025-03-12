@@ -4,9 +4,9 @@
 
 *Objectives*
 
-1.
-2.
-3.
+1. Understand the advantages of hybrid genome assemblies
+2. Perform hybrid genome assembly using Unicycler
+3. Evaluate and compare assembly quality metrics
 
 ```
 

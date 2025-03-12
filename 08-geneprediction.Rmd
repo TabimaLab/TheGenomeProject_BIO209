@@ -4,9 +4,8 @@
 
 *Objectives*
 
-1.
-2.
-3.
+1. Annotate assembled genomes
+2. Interpret and summarize annotation output files
 
 ```
 After assembling the genome, we need to identify which regions are genes. This is called gene annotation or gene prediction, and uses a combination of *ab-initio* approaches with homology-based searches to predict and annotate the genes. 
