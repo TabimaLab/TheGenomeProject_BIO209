@@ -587,7 +587,7 @@ What is the e-value used as threshold? What does e-value mean?
 <ol start="13" style="list-style-type: decimal">
 <li>Now, after <code>BLAST</code> is done we have all the elements to run <code>blobltools</code> as such:</li>
 </ol>
-<pre><code>  blobtools create -i best_assembly.fasta -b mapped.bam -t best_assembly.blast -o blobltools_out</code></pre>
+<pre><code>  blobtools create -i best_assembly.fasta -b mapped.bam -t best_assembly.blast -o blobltools_out --db /Smaug_SSD/bin/blobtools/data/nodesDB.txt  </code></pre>
 <p>Where <code>-i</code> is your assembly, <code>-b</code> is the <code>BAM</code> file of reads mapped to the assembly, <code>-t</code> is the <code>BLAST</code> output, and <code>-o</code> is the output name for the run.</p>
 <ol start="14" style="list-style-type: decimal">
 <li><code>Blobtools</code> needs a two additional steps in order to visualize and plot the results as this:</li>

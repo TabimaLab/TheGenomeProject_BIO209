@@ -259,7 +259,7 @@ Where `best_assembly.fasta` is you assembly file, `-db` is the `nt` database fro
 13. Now, after `BLAST` is done we have all the elements to run `blobltools` as such:
 
 ```
-  blobtools create -i best_assembly.fasta -b mapped.bam -t best_assembly.blast -o blobltools_out
+  blobtools create -i best_assembly.fasta -b mapped.bam -t best_assembly.blast -o blobltools_out --db /Smaug_SSD/bin/blobtools/data/nodesDB.txt  
 ```
 
 Where `-i` is your assembly, `-b` is the `BAM` file of reads mapped to the assembly, `-t` is the `BLAST` output, and `-o` is the output name for the run.
