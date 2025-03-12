@@ -506,7 +506,7 @@ This means that you can see if your genome has contamination from other organism
 <ol start="9" style="list-style-type: decimal">
 <li>Obtain the sketch for your assembled genome and compare it against the sketch of the RefSeq datasets using <code>sendsketch.sh</code> as such:</li>
 </ol>
-<pre><code>sendsketch.sh in=best_assembly.fasta refseq</code></pre>
+<pre><code>/Smaug_SSD/bin/bbmap/sendsketch.sh in=best_assembly.fasta refseq</code></pre>
 <p>Check the results of the program. The columns <code>WKID KID ANI SSU Complt Matches Unique</code> represent the <code>Weighted k-mer identity</code>, <code>K-mer identity</code>, <code>Average nucelotide identity</code>, <code>16S identity by alignment</code>, <code>Genome completeness</code>, <code>The number of shared kmers between query and ref</code>, <code>The number of shared kmers between query and ref, and no other ref.</code></p>
 <p>So, if your result is 100% in the <code>WKID</code> against <em>Synechococcus</em>, that means that 100% of the k-mers from your assembly match the k-mers from <em>Synechococcus</em>.</p>
 <ol start="10" style="list-style-type: decimal">
@@ -534,8 +534,10 @@ Summarize you results and what they mean
 <blockquote>
 <p>Before we start do this:</p>
 </blockquote>
-<pre><code>conda init bash</code></pre>
-<p>Then, log out and log in again.</p>
+<pre><code>conda deactivate
+&quot;${SHELL}&quot; &lt;(curl -L micro.mamba.pm/install.sh)</code></pre>
+<p>follow the instructions and then do the following to install <code>blobtools</code>, the program we will use to assay for contamination.</p>
+<pre><code>micromamba install bioconda::blobtools</code></pre>
 <hr />
 <p>Now we suspect that our sequences have a lot of environmental contaminants, but we don’t know which of the scaffolds are from our bacteria of interest or which ones are from contaminants. This is because the results from the <code>sendsketch.sh</code> assay are across the entire assembly.To have a good assemblythat <strong>only</strong> respresnets our species of interest we should identify and remove all scaffolds that are not matching the taxa we are interested in.</p>
 <p>To do this, we use <a href="https://blobtools.readme.io/docs"><code>blobtools</code></a>. <code>Blobtools</code> determines the taxonomic assignment and the coverage for <strong>every single scaffold</strong> in your assembly!</p>

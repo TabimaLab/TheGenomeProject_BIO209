@@ -174,7 +174,7 @@ Lets do a sketch assay for the assemblies:
 9. Obtain the sketch for your assembled genome and compare it against the sketch of the RefSeq datasets using `sendsketch.sh` as such:
 
 ```
-sendsketch.sh in=best_assembly.fasta refseq
+/Smaug_SSD/bin/bbmap/sendsketch.sh in=best_assembly.fasta refseq
 ```
 
 Check the results of the program. The columns `WKID	KID	ANI	SSU Complt Matches Unique` represent the `Weighted k-mer identity`, `K-mer identity`, `Average nucelotide identity`, `16S identity by alignment`, `Genome completeness`, `The number of shared kmers between query and ref`, `The number of shared kmers between query and ref, and no other ref.`
@@ -198,10 +198,16 @@ So, if your result is 100% in the `WKID` against *Synechococcus*, that means tha
 > Before we start do this:
 
 ```
-conda init bash
+conda deactivate
+"${SHELL}" <(curl -L micro.mamba.pm/install.sh)
 ```
 
-Then, log out and log in again.
+follow the instructions and then do the following to install `blobtools`, the program we will use to assay for contamination.
+
+```
+micromamba install bioconda::blobtools
+```
+ 
 
 ***
 
