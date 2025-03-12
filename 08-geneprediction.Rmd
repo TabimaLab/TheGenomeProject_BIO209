@@ -19,12 +19,6 @@ We will use [`prokka`](), a state-of-the-art program for prokariotic genome anno
 
 Before we can start installing prokka, we need to create a computational environment for it to be able to run correctly. `Miniconda` provides that environment by creating a python instance that groups all the requirements for these programs to run.
 
-```{block, type='rmdalert'}
-
-**PLEASE LET ME KNOW IF THESE STEPS DONT WORK. INSTALLING CONDA CAN BE ANNOYING!**
-
-```
-
 ```
 bash
 /Smaug_SSD/bin/Miniconda3-latest-Linux-x86_64.sh
