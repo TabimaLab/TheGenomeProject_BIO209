@@ -205,6 +205,8 @@ conda deactivate
 follow the instructions and then do the following to install `blobtools`, the program we will use to assay for contamination.
 
 ```
+conda create -n blobtools
+conda activate blobtools
 micromamba install bioconda::blobtools
 ```
  

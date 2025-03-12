@@ -537,7 +537,9 @@ Summarize you results and what they mean
 <pre><code>conda deactivate
 &quot;${SHELL}&quot; &lt;(curl -L micro.mamba.pm/install.sh)</code></pre>
 <p>follow the instructions and then do the following to install <code>blobtools</code>, the program we will use to assay for contamination.</p>
-<pre><code>micromamba install bioconda::blobtools</code></pre>
+<pre><code>conda create -n blobtools
+conda activate blobtools
+micromamba install bioconda::blobtools</code></pre>
 <hr />
 <p>Now we suspect that our sequences have a lot of environmental contaminants, but we don’t know which of the scaffolds are from our bacteria of interest or which ones are from contaminants. This is because the results from the <code>sendsketch.sh</code> assay are across the entire assembly.To have a good assemblythat <strong>only</strong> respresnets our species of interest we should identify and remove all scaffolds that are not matching the taxa we are interested in.</p>
 <p>To do this, we use <a href="https://blobtools.readme.io/docs"><code>blobtools</code></a>. <code>Blobtools</code> determines the taxonomic assignment and the coverage for <strong>every single scaffold</strong> in your assembly!</p>
