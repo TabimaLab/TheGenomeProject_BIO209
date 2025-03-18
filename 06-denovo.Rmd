@@ -403,3 +403,15 @@ $ head list_of_cyano_scaffolds.txt
 25. Summarize your final assembly in your own words:
 
 ```
+
+***
+
+## 2025 Results:
+
+|              | S165                                                       |                  | S167                                                                     |                  | 6167                                                     |                  | S166                                                                                                            |                  |
+|--------------|------------------------------------------------------------|------------------|--------------------------------------------------------------------------|------------------|----------------------------------------------------------|------------------|-----------------------------------------------------------------------------------------------------------------|------------------|
+|              | Cyano scaff #                                              | Cyano gen length | Cyano scaff #                                                            | Cyano gen length | Cyano scaff #                                            | Cyano gen length | Cyano scaff #                                                                                                   | Cyano gen length |
+| Spades       | 136                                                        | 5.25 MB          | 621                                                                      | 2.47             | 852                                                      | 2.85             | 32                                                                                                              | 2.36             |
+| Unicycler    | 67                                                         | 6.16 MB          | 29                                                                       | 2.37             | 62                                                       | 2.52             | 31                                                                                                              | 2.37             |
+| Observations | Inconclusive data: Too many scaffolds and genome too long. |                  | Unicycler is better: Fewer scaffolds, less contaminants, Shorter length? |                  | Unicycler is better: Fewer scaffolds, less contaminants, |                  | Pretty similar. Unicycler may be marginally better BUT if you only extract cyanobacteria, doesnt really matter. |                  |
+| Strategies   | Alternative: Long read sequencing                          |                  | Decent enough. Annotate!                                                 |                  | Decent enough. Annotate!                                 |                  | Decent enough. Annotate!                                                                                        |                  |
