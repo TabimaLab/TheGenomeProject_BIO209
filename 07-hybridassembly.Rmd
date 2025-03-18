@@ -17,7 +17,7 @@ So, the best of both worlds can be combined into what we call **hybrid assemblie
 To perform hybrid genome assemblies, we need two main files:
 
 1. Our Illumina reads (Choose between raw reads or cleaned reads)
-2. Our Nanopore reads (Located at the `/Smaug_SSD/BIOL209/nanopore_raw_data` folder)
+2. Our Nanopore reads (Located at the `/course_data/BIOL209/nanopore_raw_data/` folder)
 
 ## Hybrid assembly using `Unicycler`
 
@@ -33,7 +33,7 @@ However, for prokariotic organisms as the ones we are trying to assemble, our `U
 To run `Unicycler` with the long read and short read datasets, modify the following command with your `FASTQ` reads:
 
 ```
-/Smaug_SSD/bin/Unicycler-0.5.1/unicycler-runner.py --spades_path=/Smaug_SSD/bin/SPAdes-4.0.0-Linux/bin/spades.py --racon_path=/Smaug_SSD/bin/racon/build/bin/racon -1 illumina_reads_forward.fastq.gz -2 illumina_reads_forward.fastq.gz -l /course_data/BIOL209/nanopore_raw_data/NB0720_S167.fastq.gz -o unycycler_hyb_S167 -t 8
+/Smaug_SSD/bin/Unicycler-0.5.1/unicycler-runner.py --spades_path=/Smaug_SSD/bin/SPAdes-4.0.0-Linux/bin/spades.py --racon_path=/Smaug_SSD/bin/racon/build/bin/racon -1 illumina_reads_forward.fastq.gz -2 illumina_reads_reverse.fastq.gz -l /course_data/BIOL209/nanopore_raw_data/longread.fastq.gz -o unicycler_hyb_S167 -t 8
 ```
 
 Where:

@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Javier F. Tabima Restrepo" />
 
 
-<meta name="date" content="2025-03-12" />
+<meta name="date" content="2025-03-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -186,7 +186,7 @@ Evaluate and compare assembly quality metrics
 <p>To perform hybrid genome assemblies, we need two main files:</p>
 <ol style="list-style-type: decimal">
 <li>Our Illumina reads (Choose between raw reads or cleaned reads)</li>
-<li>Our Nanopore reads (Located at the <code>/Smaug_SSD/BIOL209/nanopore_raw_data</code> folder)</li>
+<li>Our Nanopore reads (Located at the <code>/course_data/BIOL209/nanopore_raw_data/</code> folder)</li>
 </ol>
 <div id="hybrid-assembly-using-unicycler" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Hybrid assembly using <code>Unicycler</code><a href="hybrid-assembly-methods-for-short-and-long-reads.html#hybrid-assembly-using-unicycler" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -199,7 +199,7 @@ Evaluate and compare assembly quality metrics
 </ol>
 <p>However, for prokariotic organisms as the ones we are trying to assemble, our <code>Unicycler</code> program will do everything mentioned above and more, so hopefully we will have the best assambly possible using the highest amount of data.</p>
 <p>To run <code>Unicycler</code> with the long read and short read datasets, modify the following command with your <code>FASTQ</code> reads:</p>
-<pre><code>/Smaug_SSD/bin/Unicycler-0.5.1/unicycler-runner.py --spades_path=/Smaug_SSD/bin/SPAdes-4.0.0-Linux/bin/spades.py --racon_path=/Smaug_SSD/bin/racon/build/bin/racon -1 illumina_reads_forward.fastq.gz -2 illumina_reads_forward.fastq.gz -l /course_data/BIOL209/nanopore_raw_data/NB0720_S167.fastq.gz -o unycycler_hyb_S167 -t 8</code></pre>
+<pre><code>/Smaug_SSD/bin/Unicycler-0.5.1/unicycler-runner.py --spades_path=/Smaug_SSD/bin/SPAdes-4.0.0-Linux/bin/spades.py --racon_path=/Smaug_SSD/bin/racon/build/bin/racon -1 illumina_reads_forward.fastq.gz -2 illumina_reads_reverse.fastq.gz -l /course_data/BIOL209/nanopore_raw_data/longread.fastq.gz -o unicycler_hyb_S167 -t 8</code></pre>
 <p>Where:</p>
 <ul>
 <li><code>--spades_path=</code> is where SPADes binary is located at</li>
