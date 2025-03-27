@@ -61,7 +61,7 @@ Usually, these computationally complex programs are very long and cumbersome to 
 Within your sample folder, run the following code:
 
 ```
-prokka --genus Synechoccocus --strain the_name_of_your_strain --outdir your_sample_name_annotation --prefix your_sample_name  your_assembly.fasta
+prokka --dbdir /home/jtabima/micromamba/envs/prokka_env/db --genus Synechoccocus --strain the_name_of_your_strain --outdir your_sample_name_annotation --prefix your_sample_name  your_assembly.fasta
 ```
 
 And let it run! 
