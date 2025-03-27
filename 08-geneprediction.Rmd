@@ -88,7 +88,7 @@ After prokka is done, the outputs should be in your `your_sample_name_annotation
 > Hint: Check [the Prokka manual](https://github.com/tseemann/prokka)
 
 
-2. Using your knowledge on the command line, can you count the number of predicted proteins, translated CDS sequences and all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+2. Using your knowledge on the command line, can you count the number of predicted proteins, and all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
 
 3. Open the `.txt` file. Answer the following questions:
  
